@@ -1,0 +1,12 @@
+
+# ignore all files except the CMakeList.txt file
+Vector/UnitTest++/src/*.cpp
+Vector/UnitTest++/src/*.h
+Vector/UnitTest++/src/*.o
+Vector/UnitTest++/src/cmake-build-debug/*
+Vector/UnitTest++/src/Posix/*
+Vector/UnitTest++/src/.idea
+Vector/UnitTest++/libUnitTest++.a
+Vector/UnitTest++/src/tests/*
+Vector/UnitTest++/src/*.d
+Vector/build/*
