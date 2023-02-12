@@ -5,7 +5,7 @@
 
 ----
 
-#### Please feel free to let me know if you know a better method of implimitation for the following:
+#### Please feel free to let me know if there's a better method of implimitation for the following:
 - Structure on how I have built the project. From directory names/locations to how I ran my UnitTests.
 - Functions that may be implimented better. 
 - Structure of the code regarding comments and style.
