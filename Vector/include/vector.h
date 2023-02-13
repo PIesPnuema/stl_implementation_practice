@@ -172,20 +172,20 @@ Vector<T>::getCapacity() const {
 template <typename T>                               // operator[] const
 Vector<T>::const_reference
 Vector<T>::operator[](size_t index) const {
-    assert(index <= size_ && index > 0);
+    assert(index <= size_ && index >= 0);
     return array_[index];
 }
 
 template <typename T>                               // front() const
-const_reference 
+Vector<T>::const_reference 
 Vector<T>::front() const {
     return array_;
 }
 
 template <typename T>
-const_reference 
+Vector<T>::const_reference 
 Vector<T>::back() const {
-    return array_ + size;
+    return array_ + size_ - 1;
 }
 
 template <typename T>                               // print()
@@ -205,22 +205,41 @@ Vector<T>::print() const {
  */
 
 template <typename T>
-reference 
-Vector<T>::front() const {
-    return array_;
+Vector<T>::reference 
+Vector<T>::front() {
+    return array_[0];
 }
 
 template <typename T>
-reference 
-Vector<T>::back() const {
-    return array_ + size;
+Vector<T>::reference 
+Vector<T>::back() {
+    return array_[size_ - 1];
 }
 
 template <typename T>
 Vector<T>::reference
 Vector<T>::operator[](size_t index) {
-    assert(index <= size_ && index > 0);
+    assert(index <= size_ && index >= 0);
     return array_[index];
+}
+
+template <typename T>
+void 
+Vector<T>::pushBack(value_type value) {
+    if (size_ >= capacity_)
+        ReAlloc(capacity_ * 2 + 1);
+    array_[size_] = value;
+    ++size_;
+}
+
+template <typename T>
+void 
+Vector<T>::popBack() {
+    if(size_ > 0) {
+        pointer element = &array_[size_-1];
+        element->~T();
+        --size_;
+    }
 }
 
 // ----------------------------------------------------------------------------
