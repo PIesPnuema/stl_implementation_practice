@@ -15,7 +15,7 @@ cd build
 ```bash
 cmake ..
 ```
-    - the ".." tell cmake the root CMakeLists.txt file to configure the project is back one directory.
+   - the ".." tell cmake the root CMakeLists.txt file to configure the project is back one directory.
 
 3. build the project to obtain the executable. 
 ```bash
