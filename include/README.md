@@ -1,7 +1,9 @@
-# Vector.h 
+# Includes 
 ----
+Here you will find the the template header files. Refer to the root README.md file for information on how to 
+compile using cmake.
 
-#### This project is a recreation of the std::library container `vector`. Just for Fun. 
+#### This project is my own implimitation of the std::library containers. The purpose is just to learn and have fun. 
 
 ----
 
