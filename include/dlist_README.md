@@ -1,7 +1,10 @@
 
+## double linked list
+
 This project is my own implementation of a doubly linked list name dlist.
 
-what did I learn?
+## what did I learn?
+
     - If a class is a friend to another class then class member functions that is the friend can access private members using the "." operator
       of a class passed as a parameter "other" but "other" needs to be passed by value.
             e.g access node from class we are friends with
@@ -40,7 +43,7 @@ what did I learn?
                             return *this;
                     }
     
-    -The magic was in the overloads in the iterator class
+    - The magic was in the overloads in the iterator class
             - You must make these work first in order to use algorithms on them
                     - pay close attention to the use of the overloads ==, != inside iterator
                      and then the == overload in node struct

@@ -49,7 +49,7 @@ TEST(copyConstructor_nonEmptySource)
    ls2.pop_front();
    CHECK(ls2.front() == 2);
    ls2.pop_front();
-   CHECK(ls2.front() == 3);
+   CHECK(ls2.front() == 3); 
 }
 
 TEST(iteratorRangeConstructor_nonEmptyRange)
@@ -548,7 +548,3 @@ TEST(transform)
    CHECK(dqResult == dqTransformed);
 }
 
-int main()
-{
-   return UnitTest::RunAllTests();
-}

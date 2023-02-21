@@ -15,13 +15,13 @@
 
 #include <iostream>
 
-#include "./include/vector.h"
+#include "vector.h"
 using namespace AaronCarroll;
 
 #include "UnitTest++.h"
 using namespace UnitTest;
 
-#include "./include/constants.h"
+#include "constants.h"
 using namespace VectorTestConstants;
 
 TEST(Test1DefaultConstructor) {
@@ -128,6 +128,5 @@ TEST(test) {
 }
 
 */
-
 
 
