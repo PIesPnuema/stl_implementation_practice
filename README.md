@@ -15,14 +15,10 @@ cd build
 ```bash
 cmake ..
 ```
-- the ".." tell cmake the root CMakeLists.txt file to configure the project is back one directory.
-
 3. build the project to obtain the executable. 
 ```bash
 cmake --build . 
 ```
-    - Here we are telling cmake to build the project in the current directory (build)
-
 4. The executable is called STLPROJECT. To run the tests you just need to run the executable:
 ```bash
 ./STLPROJECT
@@ -31,7 +27,7 @@ cmake --build .
 If all configurations from UnitTest++ go well. All tests should pass.
 
 ### Project File Structure
-
+```
 root_repo/ stl_implimitation_practice
 ├── CMakeLists.txt
 ├── README.md
@@ -52,4 +48,4 @@ root_repo/ stl_implimitation_practice
     ├── DListTests.cpp
     ├── TODO.md
     └── VectorTests.cpp
-
+```
