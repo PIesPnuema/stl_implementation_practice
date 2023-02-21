@@ -52,10 +52,11 @@ root_repo/ stl_implimitation_practice
 ```
 
 ### TODO
-- [ ] finish Vector.h / add more tests
-- [ ] check Vector.h for exception safety and refine algorithms
-- [ ] add features to dlist.h
-- [ ] create Queue
-- [ ] create Deque
-- [ ] create Maps
-- [ ] create docs
+- [ ] Add UnitTest++ that has windows/ mac/ vscode configs
+- [ ] Finish Vector.h / add more tests
+- [ ] Check Vector.h for exception safety and refine algorithms
+- [ ] Add features to dlist.h
+- [ ] Create Queue
+- [ ] Create Deque
+- [ ] Create Maps
+- [ ] Create docs
