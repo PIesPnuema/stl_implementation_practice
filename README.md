@@ -1,10 +1,11 @@
 
 # stl_implimitation_practice
 
-Recreating the std::containers and learning along the way
+Recreating the std::containers and learning along the way. 
 
-#### How to compile tests using CMake.
+#### Sections: [Test](#test) | [Project_File_Structure](#project_file_structure) | [TODO](#todo)
 
+#### Test
 I have included a empty build directory for a place to build the tests.
 
 1. from root directory cd into the build directory:
@@ -26,7 +27,7 @@ cmake --build .
 
 If all configurations from UnitTest++ go well. All tests should pass.
 
-### Project File Structure
+### Project_File_Structure
 ```
 root_repo/ stl_implimitation_practice
 ├── CMakeLists.txt
@@ -49,3 +50,12 @@ root_repo/ stl_implimitation_practice
     ├── TODO.md
     └── VectorTests.cpp
 ```
+
+### TODO
+- [ ] finish Vector.h / add more tests
+- [ ] check Vector.h for exception safety and refine algorithms
+- [ ] add features to dlist.h
+- [ ] create Queue
+- [ ] create Deque
+- [ ] create Maps
+- [ ] create docs
