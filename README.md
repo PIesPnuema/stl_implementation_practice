@@ -52,7 +52,6 @@ root_repo/ stl_implimitation_practice
 ```
 
 ### TODO
-- [ ] Add UnitTest++ that has windows/ mac/ vscode configs
 - [ ] Finish Vector.h / add more tests
 - [ ] Check Vector.h for exception safety and refine algorithms
 - [ ] Add features to dlist.h
