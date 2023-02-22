@@ -1,7 +1,7 @@
 # Includes 
 
-Here you will find the the template header files. Refer to the root README.md file for information on how to 
-compile using cmake.
+Here you will find the template header files. Refer to the root [README.md](https://github.com/PIesPnuema/stl_implimitation_practice/blob/main/README.md) file for information on how to 
+compile tests using cmake.
 
 #### This project is my own implimitation of the std::library containers. The purpose is just to learn and have fun. 
 
@@ -12,7 +12,6 @@ compile using cmake.
 - Errors. If they are there (they are) please point them out. 
 
 I wish to take in any feed back to help expand my knowledge. Thanks for stoping by. 
-
 
 ## TODO:
 
