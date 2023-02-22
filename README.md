@@ -1,12 +1,12 @@
 
 # stl_implimitation_practice
 
-Recreating the std::containers and learning along the way. 
+This repo is all about recreating the std::containers and learning along the way. Take a look around. All the container templates can be found inside the [include](https://github.com/PIesPnuema/stl_implimitation_practice/tree/main/include) directory. 
 
 #### Sections: [Test](#test) | [Project_File_Structure](#project_file_structure) | [TODO](#todo)
 
 #### Test
-I have included a empty build directory for a place to build the tests.
+Unit Tests are included for each container on the repo. Any contribution should make sure each new feature works and has a UnitTest before pushing the addtions to github. The following is instructions on how to run the UnitTests.
 
 1. from root directory cd into the build directory:
 ```bash
@@ -16,7 +16,7 @@ cd build
 ```bash
 cmake ..
 ```
-3. build the project to obtain the executable. 
+3. building the project inside the "build" directory to obtain the executable. 
 ```bash
 cmake --build . 
 ```
@@ -24,8 +24,6 @@ cmake --build .
 ```bash
 ./STLPROJECT
 ```
-
-If all configurations from UnitTest++ go well. All tests should pass.
 
 ### Project_File_Structure
 ```
