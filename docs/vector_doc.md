@@ -4,7 +4,7 @@
 ### What should be returned by value?
 
 - **Begin() / end()**
-    - Const or non const these should always be returned by ***copy*** 
+    - Const or non const these should always be returned by ***value*** 
     of, and not a ***reference*** or a ***pointer*** of. This is to allow the 
     iterator to change but not effect the originating value the container itself 
     may be pointing to.
