@@ -11,6 +11,8 @@
 
 ### what should be returned by reference or pointer?
 
+TODO: write best practices to answer this
+
 ### Other
 
 - std::initializer allows you to take bracket { } style assignment. The behavior
