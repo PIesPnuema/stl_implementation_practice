@@ -16,7 +16,7 @@ TODO: write best practices to answer this
 ### Other
 
 - std::initializer allows you to take bracket { } style assignment. The behavior
-is like an object with an iterator so you can call init.size(), init.begin() and init.end().
+is that of an object with an iterator so you can call init.size(), init.begin() and init.end().
 
 - std::distance finds the distance between iterators regardless of container type.
 
