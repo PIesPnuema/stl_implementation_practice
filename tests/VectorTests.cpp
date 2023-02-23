@@ -21,7 +21,7 @@ using namespace AaronCarroll;
 #include "UnitTest++.h"
 using namespace UnitTest;
 
-#include "constants.h"
+#include "test_constants.h"
 using namespace VectorTestConstants;
 
 TEST(Test1DefaultConstructor) {
@@ -46,31 +46,47 @@ TEST(test2allocateNSizeEmptyVector) {
     //std::cout << "\n";
 }
 
-TEST(test3allocateNSizePlusValue) {
+TEST(test3FillCtor) {
     
     Vector<double> myVectorDouble(SIZE, DOUBLEVALUE);
     CHECK_EQUAL(myVectorDouble.getCapacity(), SIZE);
     CHECK_EQUAL(myVectorDouble.getSize(), SIZE);
     CHECK_EQUAL(myVectorDouble[1], DOUBLEVALUE);
-        
-    //std::cout << "test3 double. Expected value = 3.14: ";
-    //myVectorDouble.print();
-    //std::cout << "\n";
-
+    CHECK_EQUAL(myVectorDouble[SIZE -1], DOUBLEVALUE);
+    
     Vector<std::string> myVectorStr(SIZE, STRINGVALUE);
     CHECK_EQUAL(myVectorStr.getCapacity(), SIZE);
     CHECK_EQUAL(myVectorStr.getSize(), SIZE);
     CHECK(myVectorStr[SIZE-1].compare(STRINGVALUE) == 0);
-
-    //std::cout << "test3 string. Expected value = \"Hello World\": ";
-    //myVectorStr.print();
-    //std::cout << "\n";
 }
 
 TEST(testPushBack) {
     Vector<int> myVec;
     myVec.pushBack(INTVALUE);
     CHECK_EQUAL(myVec[0], INTVALUE);
+}
+
+TEST(testReAlloc) {
+
+    // capacity formula = ReAlloc(capacity_ * 2 + 1)
+
+    Vector<double> myVec;          // capacity = 2 size = 0
+                            
+    myVec.pushBack(DOUBLEVALUE);   // capacity = 2 size = 1
+    myVec.pushBack(DOUBLEVALUE);   // capacity = 2 size = 2
+    myVec.pushBack(DOUBLEVALUE);   // capacity = 5 size = 3
+    myVec.pushBack(DOUBLEVALUE);   // capacity = 5 size = 4
+    myVec.pushBack(DOUBLEVALUE);   // capacity = 5 size = 5
+    myVec.pushBack(DOUBLEVALUE);   // capacity = 11 size = 6
+    myVec.pushBack(DOUBLEVALUE);   // capacity = 11 size = 7
+    myVec.pushBack(DOUBLEVALUE);   // capacity = 11 size = 8
+    myVec.pushBack(DOUBLEVALUE);   // capacity = 11 size = 9
+    myVec.pushBack(DOUBLEVALUE);   // capacity = 11 size = 10
+    myVec.pushBack(DOUBLEVALUE);   // capacity = 11 size = 11
+    myVec.pushBack(DOUBLEVALUE);   // capacity = 23 size = 12
+
+    CHECK_EQUAL(myVec.getCapacity(), CAP_AFTER_11_PUSHBACKS);
+    CHECK_EQUAL(myVec.getSize(), SIZE_AFTER_11_PUSHBACKS);
 }
 
 TEST(testPopBack) {
@@ -93,6 +109,7 @@ TEST(testFront) {
     myVec.pushBack(INTVALUE + 2);
     myVec.pushBack(INTVALUE + 3);
     CHECK_EQUAL(myVec.front(), INTVALUE);
+    CHECK_EQUAL(myVec.front() = INTVALUE + 5, INTVALUE + 5);
 }
 
 TEST(testBack) {
@@ -101,8 +118,8 @@ TEST(testBack) {
     myVec.pushBack(INTVALUE + 2);
     myVec.pushBack(INTVALUE + 3);
     CHECK_EQUAL(myVec.back(), INTVALUE + 3);
+    CHECK_EQUAL(myVec.back() = INTVALUE, INTVALUE);
 }
-
 TEST(testSubScript) {
     Vector<int> myVec;
     myVec.pushBack(INTVALUE);
@@ -110,22 +127,63 @@ TEST(testSubScript) {
     myVec.pushBack(INTVALUE + 3);
     CHECK(myVec[0] == INTVALUE && myVec[1] == INTVALUE + 2 && 
             myVec[2] == INTVALUE + 3);
+    
+    // check const subscript.
+    const Vector<int> myVecConst = {0,1,2,3,4,5,6,7,8};
+    CHECK_EQUAL(myVecConst[2], 2);
 }
 /*
+
+TEST(testIteratorDefaultCtor) {
+    
+}
+
+TEST(testIteratorExplicitCtor) {
+
+}
+TEST(testIteratorMoveCtor) {
+
+}
+
+TEST(testBegin) {
+
+}
+
+
+TEST(testEnd) {
+
+}
+
+
+TEST(testConstBegin) {
+
+}
+
+
+
+TEST(testConstEnd) {
+
+}
+TEST(test) {
+
+}
+TEST(test) {
+
+}
+TEST(test) {
+
+}
+TEST(test) {
+
+}
+TEST(test) {
+
+}
 TEST(test) {
 
 }
 
-TEST(test) {
-
-}
-TEST(test) {
-
-}
-
-TEST(test) {
-
-}
+ 
 
 */
 

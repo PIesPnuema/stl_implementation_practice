@@ -25,6 +25,8 @@ const std::string STRINGVALUE = "Hello World";
 const double DOUBLEVALUE = 3.14;
 const int INTVALUE = 64;
 const char CHARVALUE = 'A';
+const size_t CAP_AFTER_11_PUSHBACKS = 23;
+const size_t SIZE_AFTER_11_PUSHBACKS = 12;
 
 }
 
