@@ -19,6 +19,7 @@
 #include <iostream>
 #include <cstdint>
 #include <cassert>
+#include <cstddef>
 
 namespace AaronCarroll {
 
@@ -29,13 +30,14 @@ namespace AaronCarroll {
         class iterator;
 
         // typedef's
-        typedef T               value_type;
-        typedef T*              pointer;
-        typedef const T*        const_pointer;
-        typedef T&              reference;
-        typedef const T&        const_reference;
-        typedef const iterator  const_iterator;
-            
+        typedef T                        value_type;
+        typedef T*                       pointer;
+        typedef const T*                 const_pointer;
+        typedef T&                       reference;
+        typedef const T&                 const_reference;
+        typedef const iterator           const_iterator;
+        typedef typename std::ptrdiff_t  difference_type;
+
         // ctor's
         
         Vector();
@@ -99,35 +101,70 @@ namespace AaronCarroll {
     class Vector<T>::iterator : std::iterator<std::random_access_iterator_tag, T> {
      public:
         
+         // friend class
         friend class Vector<T>;
-        
-        // typedef's
-        typedef Vector<T>::value_type       value_type;
-        typedef Vector<T>::pointer          pointer;
-        typedef Vector<T>::const_pointer    const_pointer;
-        typedef Vector<T>::reference        reference;
-        typedef Vector<T>::const_reference  const_reference;
 
+        // friend functions
+        friend std::ostream& operator<<(std::ostream& os, const iterator& it) {
+            os << *it;
+            return os;
+        }
+        
+        // Vector Qualified dependant typedefs
+        typedef typename Vector<T>::value_type       value_type;
+        typedef typename Vector<T>::pointer          pointer;
+        typedef typename Vector<T>::const_pointer    const_pointer;
+        typedef typename Vector<T>::reference        reference;
+        typedef typename Vector<T>::const_reference  const_reference;
+        typedef typename Vector<T>::difference_type  difference_type;
+
+        // iterator typedefs
+        typedef const iterator                       const_iterator;
+        typedef iterator&                            iterator_reference;
+        typedef const iterator&                      const_iterator_reference;
+        
+                
+        // constructors -> we do not need a move ctor in for an iterator b/c
+        // we are not moving resources but mearly viewing them.
         iterator();
         iterator(pointer ptr); 
-        iterator(iterator&& other);
         //const iterator& operator=(const iterator& other);
 
-        iterator& operator++();
-        const iterator& operator++(int);
-        iterator& operator--();
-        const iterator& operator--(int);
+        // destructor
+        ~iterator() = default;
 
+        // overloaded operators
+        reference operator*();
+        const_reference operator*() const;
         
+        pointer operator->();
+        const_pointer operator->() const;
+
+        iterator_reference operator++();
+        const_iterator operator++(int);
+        iterator_reference operator--();
+        const_iterator operator--(int);
+
+        iterator_reference operator+(size_t size);
+        
+        difference_type operator-(const_iterator_reference other) const; 
+
+        // comparison operators
+        
+        bool operator==(const_iterator_reference other) const;
+        bool operator!=(const_iterator_reference other) const;
+        bool operator>(const_iterator_reference other) const;
+        bool operator>=(const_iterator_reference other) const;
+        bool operator<(const_iterator_reference other) const;
+        bool operator<=(const_iterator_reference other) const;
+
      private:
         pointer iter_;
     };
 
-    // ------------------------------------------------------------------------
-    // Vector definitions
-    // ------------------------------------------------------------------------
-
-
+// ****************************************************************************
+// Vector definitions
+// ****************************************************************************
 
     /*
      *  constructors
@@ -146,6 +183,8 @@ namespace AaronCarroll {
     template <typename T>                               
     Vector<T>::Vector(size_t size) {
         ReAlloc(size);
+        std::generate(array_, array_ + size, [](){return 0;});
+        size_ = size;
     }
 
     // fill size/generate ctor
@@ -381,11 +420,13 @@ namespace AaronCarroll {
         return iterator(array_ + size_);
     }
 
-
-    // ------------------------------------------------------------------------
-    // Vector private member functions -> helpers
-    // ------------------------------------------------------------------------
     
+
+    /*
+     *   Vector private member functions -> helpers            
+     *   ------------------------------------------
+     */
+
     // ReAlloc()
 
     template <typename T>
@@ -414,9 +455,9 @@ namespace AaronCarroll {
         std::swap(capacity_, other.capacity_);
     }
 
-    // ------------------------------------------------------------------------
-    // iterator class definitions
-    // ------------------------------------------------------------------------
+// ****************************************************************************
+// iterator class definitions
+// ****************************************************************************
 
     
     /*
@@ -430,11 +471,132 @@ namespace AaronCarroll {
     template <typename T>
     Vector<T>::iterator::iterator(typename iterator::pointer ptr) : iter_(ptr)
     {}
+    
+    
+
+    /*
+     *  iterator reference operators
+     *  -----------------------------
+     */
+    
+    // operator*
+    template <typename T>
+    typename Vector<T>::iterator::reference
+    Vector<T>::iterator::operator*() {
+        return *iter_;
+    }
+        
+    // const operator*
+    template <typename T>
+    typename Vector<T>::iterator::const_reference
+    Vector<T>::iterator::operator*() const {
+        return *iter_;
+    }
+    
+    // operator ->
+    template <typename T>
+    typename Vector<T>::iterator::pointer
+    Vector<T>::iterator::operator->() {
+        return iter_;
+    }
+
+    // const operator ->
+    template <typename T>
+    typename Vector<T>::iterator::const_pointer
+    Vector<T>::iterator::operator->() const {
+        return iter_;
+    }
+    
+
+    /*
+     *  iterator increment and decrement operators
+     *  ------------------------------------------
+     */
+
+    // ++operator
+    template <typename T>
+    typename Vector<T>::iterator::iterator_reference
+    Vector<T>::iterator::operator++() {
+        ++iter_;
+        return *this;
+    }
+
+    // operator++
+    template <typename T>
+    typename Vector<T>::iterator::const_iterator
+    Vector<T>::iterator::operator++(int) {
+        iterator temp(this->iter_);
+        operator++();
+        return temp;
+    }
+    
+    // --operator
+    template <typename T>
+    typename Vector<T>::iterator::iterator_reference
+    Vector<T>::iterator::operator--() {
+        --iter_;
+        return *this;
+    }
+    
+    // operator--
+    template <typename T>
+    typename Vector<T>::iterator::const_iterator
+    Vector<T>::iterator::operator--(int) {
+        iterator temp(this->iter_);
+        operator--();
+        return temp;
+    }
+    
+
+    
+    /*
+     *  iterator pointer arithmatic operators 
+     *  -------------------------------------
+     */
+
+    // operator+
+    // Dont forget to use the compound operator +=
+    // You forgot the = and this was a hard bug to find.
+    template <typename T>
+    typename Vector<T>::iterator::iterator_reference
+    Vector<T>::iterator::operator+(size_t size) {
+        iter_ += size;
+        return *this;
+    }
+
+    // operator- 
+    // for pointer arithmatic and std::difference algo
+
+    // NOTE ITERATOR_TRAITS NOT DEFINED AND BREAKS DLIST, QUEUE SO WE WONT 
+    // USE STD::DISTANCE
+    template <typename T>
+    typename Vector<T>::iterator::difference_type
+    Vector<T>::iterator::operator-(const_iterator_reference other) const{
+        return iter_ - other.iter_;
+    }
+    
+    /*
+     *  iterator comparison operators
+     *  -----------------------------
+     *  Need to work with algorithms. They are comparing addresses not The
+     *  value of the pointer. In this case address of iter_ not value of 
+     *  *iter_
+     */
 
     template <typename T>
-    Vector<T>::iterator::iterator(typename Vector<T>::iterator&& other) 
-        : iter_(std::move(other.iter_)) 
-    {}
+    bool
+    Vector<T>::iterator::operator==(
+            typename Vector<T>::iterator::const_iterator_reference other) const {
+        return iter_ == other.iter_;
+    }
+
+    template <typename T>
+    bool
+    Vector<T>::iterator::operator!=(
+            typename Vector<T>::iterator::const_iterator_reference other) const {
+        return !operator==(other);
+    }
+
 }
 
 #endif

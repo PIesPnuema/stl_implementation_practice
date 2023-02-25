@@ -14,6 +14,7 @@
  */
 
 #include <iostream>
+#include <algorithm>
 
 #include "vector.h"
 using namespace AaronCarroll;
@@ -35,29 +36,53 @@ TEST(Test1DefaultConstructor) {
     CHECK_EQUAL(myVectorStr.getSize(), 0);
 }
 
+TEST(testIteratorDefaultCtor) {
+    Vector<int>::iterator first;
+}
+
+TEST(testBeginAndEnd) {
+    Vector<int> myVec(SIZE, INTVALUE);
+    Vector<int>::iterator first = myVec.begin();
+    Vector<int>::iterator last = myVec.end();
+    CHECK_EQUAL(last - first, SIZE);
+}
+
 TEST(test2allocateNSizeEmptyVector) {
     
-    Vector<double> myVectorDouble(SIZE);
-    CHECK_EQUAL(myVectorDouble.getCapacity(), SIZE);
-    CHECK_EQUAL(myVectorDouble.getSize(), 0);
+    Vector<double> myVec(SIZE);
+    CHECK_EQUAL(myVec.getCapacity(), SIZE);
+    CHECK_EQUAL(myVec.getSize(), SIZE);
     
-    //std::cout << "test2 double. Expected value = \" \": ";
-    //myVectorDouble.print();
-    //std::cout << "\n";
+    std::generate(myVec.begin(), myVec.end(), [](){return DOUBLEVALUE;});
+
+    CHECK_EQUAL(std::all_of(myVec.begin(), myVec.end(), [](double element) {
+                    return element == DOUBLEVALUE;
+                }), 1);
 }
 
 TEST(test3FillCtor) {
     
     Vector<double> myVectorDouble(SIZE, DOUBLEVALUE);
+
     CHECK_EQUAL(myVectorDouble.getCapacity(), SIZE);
     CHECK_EQUAL(myVectorDouble.getSize(), SIZE);
     CHECK_EQUAL(myVectorDouble[1], DOUBLEVALUE);
-    CHECK_EQUAL(myVectorDouble[SIZE -1], DOUBLEVALUE);
+
+    CHECK_EQUAL(std::all_of(myVectorDouble.begin(), myVectorDouble.end(), 
+                [&](double element) {
+                return element == DOUBLEVALUE;
+                }), 1);     
     
+    // string test
     Vector<std::string> myVectorStr(SIZE, STRINGVALUE);
+
     CHECK_EQUAL(myVectorStr.getCapacity(), SIZE);
     CHECK_EQUAL(myVectorStr.getSize(), SIZE);
-    CHECK(myVectorStr[SIZE-1].compare(STRINGVALUE) == 0);
+
+    CHECK_EQUAL(std::all_of(myVectorStr.begin(), myVectorStr.end(), 
+                [&](std::string str) { 
+                    return str.compare(STRINGVALUE) == 0 ? 1 : 0;
+                }), 1);
 }
 
 TEST(testPushBack) {
@@ -87,6 +112,10 @@ TEST(testReAlloc) {
 
     CHECK_EQUAL(myVec.getCapacity(), CAP_AFTER_11_PUSHBACKS);
     CHECK_EQUAL(myVec.getSize(), SIZE_AFTER_11_PUSHBACKS);
+
+    CHECK_EQUAL(std::all_of(myVec.begin(), myVec.end(), [&](double element) {
+                return element == DOUBLEVALUE;
+                }), 1);
 }
 
 TEST(testPopBack) {
@@ -120,6 +149,7 @@ TEST(testBack) {
     CHECK_EQUAL(myVec.back(), INTVALUE + 3);
     CHECK_EQUAL(myVec.back() = INTVALUE, INTVALUE);
 }
+
 TEST(testSubScript) {
     Vector<int> myVec;
     myVec.pushBack(INTVALUE);
@@ -132,12 +162,9 @@ TEST(testSubScript) {
     const Vector<int> myVecConst = {0,1,2,3,4,5,6,7,8};
     CHECK_EQUAL(myVecConst[2], 2);
 }
-/*
 
-TEST(testIteratorDefaultCtor) {
-    
-}
 
+/* 
 TEST(testIteratorExplicitCtor) {
 
 }
@@ -145,14 +172,7 @@ TEST(testIteratorMoveCtor) {
 
 }
 
-TEST(testBegin) {
 
-}
-
-
-TEST(testEnd) {
-
-}
 
 
 TEST(testConstBegin) {
