@@ -34,7 +34,7 @@ root_repo/ stl_implementation_practice
 │   └── src
 │       ├── UnitTest++.h
 |       └── ...
-├── build
+├── build   // You will need to create this directory
 ├── include
 │   ├── CMakeLists.txt
 │   ├── README.md
