@@ -8,7 +8,7 @@ This repo is all about recreating the std::containers and learning along the way
 #### Test
 Unit Tests are included for each container on the repo. Any contribution should make sure each new feature works and has a UnitTest before pushing the addtions to github. The following is instructions on how to run the UnitTests.
 
-1. Create a build directory and cd from root directory into that build directory:
+1. From root directory of repo; Create build directory and cd into that build directory:
 ```bash
 mkdir build && cd build
 ```
