@@ -60,8 +60,11 @@ namespace AaronCarroll {
         const_reference operator[](size_t index) const;
         const_reference front() const;
         const_reference back() const;
+        const_iterator cBegin() const;
+        const_iterator cEnd() const;
         const_iterator begin() const;
         const_iterator end() const;
+
         void print() const;
         
         // modifiers
@@ -104,11 +107,6 @@ namespace AaronCarroll {
          // friend class
         friend class Vector<T>;
 
-        // friend functions
-        friend std::ostream& operator<<(std::ostream& os, const iterator& it) {
-            os << *it;
-            return os;
-        }
         
         // Vector Qualified dependant typedefs
         typedef typename Vector<T>::value_type       value_type;
@@ -123,30 +121,38 @@ namespace AaronCarroll {
         typedef iterator&                            iterator_reference;
         typedef const iterator&                      const_iterator_reference;
         
-                
+        // friend functions
+        friend std::ostream& operator<<(std::ostream& os, 
+                const_iterator_reference it); 
+        
         // constructors -> we do not need a move ctor in for an iterator b/c
         // we are not moving resources but mearly viewing them.
         iterator();
-        iterator(pointer ptr); 
-        //const iterator& operator=(const iterator& other);
+        iterator(pointer ptr);
+        // return type must not be const.
+        iterator_reference operator=(const_iterator_reference other);
 
         // destructor
         ~iterator() = default;
 
-        // overloaded operators
+        // access operators
+
         reference operator*();
         const_reference operator*() const;
         
         pointer operator->();
         const_pointer operator->() const;
+        
+        // increment and decrement operators
 
         iterator_reference operator++();
         const_iterator operator++(int);
         iterator_reference operator--();
         const_iterator operator--(int);
-
-        iterator_reference operator+(size_t size);
         
+        // arithmatic operator 
+
+        iterator_reference operator+(size_t size); 
         difference_type operator-(const_iterator_reference other) const; 
 
         // comparison operators
@@ -157,6 +163,10 @@ namespace AaronCarroll {
         bool operator>=(const_iterator_reference other) const;
         bool operator<(const_iterator_reference other) const;
         bool operator<=(const_iterator_reference other) const;
+
+        // subscript operator
+
+        reference operator[](size_t size);
 
      private:
         pointer iter_;
@@ -278,7 +288,7 @@ namespace AaronCarroll {
     // operator [] const
     
     template <typename T>                               
-    Vector<T>::const_reference
+    typename Vector<T>::const_reference
     Vector<T>::operator[](size_t index) const {
         assert(index <= size_ && index >= 0);
         return array_[index];
@@ -287,7 +297,7 @@ namespace AaronCarroll {
     // front() const
     
     template <typename T>                               
-    Vector<T>::const_reference 
+    typename Vector<T>::const_reference 
     Vector<T>::front() const {
         return array_;
     }
@@ -295,7 +305,7 @@ namespace AaronCarroll {
     // back() const
     
     template <typename T>
-    Vector<T>::const_reference 
+    typename Vector<T>::const_reference 
     Vector<T>::back() const {
         return array_ + size_ - 1;
     }
@@ -307,12 +317,17 @@ namespace AaronCarroll {
      */
     
     template <typename T>
-    Vector<T>::const_iterator 
-    Vector<T>::begin() const {
+    typename Vector<T>::const_iterator 
+    Vector<T>::cBegin() const {
         return const_iterator(array_);
     }
     
-    
+    template <typename T>
+    typename Vector<T>::const_iterator 
+    Vector<T>::begin() const {
+        return iterator(array_);
+    }
+
     /*
      *  end() const
      *  -----------
@@ -320,10 +335,18 @@ namespace AaronCarroll {
      */
 
     template <typename T>
-    Vector<T>::const_iterator 
+    typename Vector<T>::const_iterator 
+    Vector<T>::cEnd() const {
+        return const_iterator(array_ + size_);
+    }
+
+    template <typename T>
+    typename Vector<T>::const_iterator 
     Vector<T>::end() const {
         return const_iterator(array_ + size_);
     }
+
+
 
     // print() const
     
@@ -345,7 +368,7 @@ namespace AaronCarroll {
     // front()
     
     template <typename T>
-    Vector<T>::reference 
+    typename Vector<T>::reference 
     Vector<T>::front() {
         return array_[0];
     }
@@ -353,7 +376,7 @@ namespace AaronCarroll {
     // back()
    
     template <typename T>
-    Vector<T>::reference 
+    typename Vector<T>::reference 
     Vector<T>::back() {
         return array_[size_ - 1];
     }
@@ -361,7 +384,7 @@ namespace AaronCarroll {
     // operator[]
     
     template <typename T>
-    Vector<T>::reference
+    typename Vector<T>::reference
     Vector<T>::operator[](size_t index) {
         assert(index <= size_ && index >= 0);
         return array_[index];
@@ -400,7 +423,7 @@ namespace AaronCarroll {
      */
 
     template <typename T>
-    Vector<T>::iterator
+    typename Vector<T>::iterator
     Vector<T>::begin() {
         return iterator(array_);
     }
@@ -415,7 +438,7 @@ namespace AaronCarroll {
      */
     
     template <typename T>
-    Vector<T>::iterator
+    typename Vector<T>::iterator
     Vector<T>::end() {
         return iterator(array_ + size_);
     }
@@ -458,6 +481,14 @@ namespace AaronCarroll {
 // ****************************************************************************
 // iterator class definitions
 // ****************************************************************************
+    
+    template <typename T>
+    std::ostream& 
+    operator<<(std::ostream& os, 
+            typename Vector<T>::iterator::const_iterator_reference it) {
+        os << *it;
+        return os;
+    }
 
     
     /*
@@ -466,12 +497,22 @@ namespace AaronCarroll {
      */
     
     template <typename T>
-    Vector<T>::iterator::iterator() : iter_(0) {}
+    Vector<T>::iterator::iterator() : iter_(nullptr) {}
     
     template <typename T>
     Vector<T>::iterator::iterator(typename iterator::pointer ptr) : iter_(ptr)
     {}
     
+    // return type must not be const. WHY? CHAINING?
+    template <typename T>
+    typename Vector<T>::iterator::iterator_reference
+    Vector<T>::iterator::operator=(
+           typename Vector<T>::iterator::const_iterator_reference other) {
+        if (this != &other) 
+            iter_ = other.iter_;
+        
+        return *this;
+    }
     
 
     /*
@@ -595,6 +636,42 @@ namespace AaronCarroll {
     Vector<T>::iterator::operator!=(
             typename Vector<T>::iterator::const_iterator_reference other) const {
         return !operator==(other);
+    }
+ 
+    template <typename T>
+    bool
+    Vector<T>::iterator::operator>(
+           typename Vector<T>::iterator::const_iterator_reference other) const {
+        return iter_ > other.iter_;
+    }
+
+    template <typename T>
+    bool
+    Vector<T>::iterator::operator>=(
+            typename Vector<T>::iterator::const_iterator_reference other) const {
+        return operator>(other) || operator==(other);
+    }
+
+    template <typename T>
+    bool
+    Vector<T>::iterator::operator<(
+            typename Vector<T>::iterator::const_iterator_reference other) const {
+        return !operator>=(other);
+    }
+
+    template <typename T>
+    bool
+    Vector<T>::iterator::operator<=(
+            typename Vector<T>::iterator::const_iterator_reference other) const {
+        return !operator>(other);
+    }
+
+    // subscript operator
+    // DANGEROUS can end up out of bounds. 
+    template <typename T>
+    typename Vector<T>::iterator::reference 
+    Vector<T>::iterator::operator[](size_t size) {
+        return *(iter_ + size);
     }
 
 }

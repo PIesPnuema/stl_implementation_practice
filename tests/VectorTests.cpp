@@ -26,18 +26,24 @@ using namespace UnitTest;
 using namespace VectorTestConstants;
 
 TEST(Test1DefaultConstructor) {
-
     Vector<int> myVectorInt;
+
     CHECK_EQUAL(myVectorInt.getCapacity(), 2);
     CHECK_EQUAL(myVectorInt.getSize(), 0);
 
     Vector<std::string> myVectorStr;
+
     CHECK_EQUAL(myVectorStr.getCapacity(), 2);
     CHECK_EQUAL(myVectorStr.getSize(), 0);
 }
 
 TEST(testIteratorDefaultCtor) {
+    Vector<int> myVec = {0,1,2,3};
     Vector<int>::iterator first;
+
+    first = myVec.begin();
+    
+    CHECK_EQUAL(first[0], 0);
 }
 
 TEST(testBeginAndEnd) {
@@ -56,8 +62,8 @@ TEST(test2allocateNSizeEmptyVector) {
     std::generate(myVec.begin(), myVec.end(), [](){return DOUBLEVALUE;});
 
     CHECK_EQUAL(std::all_of(myVec.begin(), myVec.end(), [](double element) {
-                    return element == DOUBLEVALUE;
-                }), 1);
+        return element == DOUBLEVALUE;
+    }), 1);
 }
 
 TEST(test3FillCtor) {
@@ -69,9 +75,9 @@ TEST(test3FillCtor) {
     CHECK_EQUAL(myVectorDouble[1], DOUBLEVALUE);
 
     CHECK_EQUAL(std::all_of(myVectorDouble.begin(), myVectorDouble.end(), 
-                [&](double element) {
-                return element == DOUBLEVALUE;
-                }), 1);     
+    [&](double element) {
+        return element == DOUBLEVALUE;
+    }), 1);     
     
     // string test
     Vector<std::string> myVectorStr(SIZE, STRINGVALUE);
@@ -80,9 +86,9 @@ TEST(test3FillCtor) {
     CHECK_EQUAL(myVectorStr.getSize(), SIZE);
 
     CHECK_EQUAL(std::all_of(myVectorStr.begin(), myVectorStr.end(), 
-                [&](std::string str) { 
-                    return str.compare(STRINGVALUE) == 0 ? 1 : 0;
-                }), 1);
+    [&](std::string str) { 
+            return str.compare(STRINGVALUE) == 0 ? 1 : 0;
+    }), 1);
 }
 
 TEST(testPushBack) {
@@ -114,8 +120,8 @@ TEST(testReAlloc) {
     CHECK_EQUAL(myVec.getSize(), SIZE_AFTER_11_PUSHBACKS);
 
     CHECK_EQUAL(std::all_of(myVec.begin(), myVec.end(), [&](double element) {
-                return element == DOUBLEVALUE;
-                }), 1);
+        return element == DOUBLEVALUE;
+    }), 1);
 }
 
 TEST(testPopBack) {
@@ -164,26 +170,113 @@ TEST(testSubScript) {
 }
 
 
-/* 
+
 TEST(testIteratorExplicitCtor) {
-
+    Vector<int> myVec = {0,1,2,3};
+    Vector<int>::iterator first = myVec.begin();
+    CHECK_EQUAL(*first, *myVec.begin());
 }
-TEST(testIteratorMoveCtor) {
-
-}
 
 
 
+/*
+ *  TODO: non const iterator is allowing the change of a const variable.
+ *  --------------------------------------------------------------------
+ */
 
+// should not allow assignment if you 
+/*
 TEST(testConstBegin) {
-
+    const Vector<int> c_myVec = {0,1,2,4};
+    auto it = c_myVec.begin();
+    
+    //c_myVec[0] = 4;     // should fail.
+    *it = 4;              // should fail.
+    CHECK_EQUAL(c_myVec[0], 0);
 }
-
-
-
+ 
 TEST(testConstEnd) {
 
 }
+*/
+
+TEST(testIteratorOperatorEqual) {
+    Vector<int> myVec = {0,1,2,3};
+    Vector<int>::iterator first = myVec.begin();
+    Vector<int>::iterator last = myVec.end();
+    CHECK(!(first == last));
+    CHECK(last == last);
+    CHECK(first == first);
+}
+
+TEST(testIteratorOperatorNotEqual) {
+    Vector<int> myVec = {0,1,2,3};
+    Vector<int>::iterator first = myVec.begin();
+    Vector<int>::iterator last = myVec.end();
+    CHECK(first != last);
+    CHECK(!(last != last));
+    CHECK(!(first != first));
+}
+
+TEST(testIteratorOperatorGreaterThan) {
+    Vector<int> myVec = {0,1,2,3};
+    Vector<int>::iterator first = myVec.begin();
+    Vector<int>::iterator last = myVec.end();
+    CHECK(!(first > last));
+    CHECK(last > first);
+}
+
+TEST(testIteratorOperatorGreaterThenOrEqual) {
+    Vector<int> myVec = {0,1,2,3};
+    Vector<int>::iterator first = myVec.begin();
+    Vector<int>::iterator last = myVec.end();
+    CHECK(!(first >= last));
+    CHECK(first >= first);
+    CHECK(last >= first);
+}
+
+
+TEST(testIteratorOperatorLessThan) {
+    Vector<int> myVec = {0,1,2,3};
+    Vector<int>::iterator first = myVec.begin();
+    Vector<int>::iterator last = myVec.end();
+    CHECK(first < last);
+    CHECK(!(last < first));
+}
+
+TEST(testIteratorOperatorLessThanOrEqual) {
+    Vector<int> myVec = {0,1,2,3};
+    Vector<int>::iterator first = myVec.begin();
+    Vector<int>::iterator last = myVec.end();
+    CHECK(first <= last);
+    CHECK(first <= first);
+    CHECK(!(last <= first));
+}
+
+/*
+TEST(testVectorOperatorEqual) {
+
+}
+
+TEST(testVectorOperatorNotEqual) {
+
+}
+
+TEST(testVectorOperatorGreaterThan) {
+
+}
+TEST(testVectorOperatorGreaterThanOrEqual) {
+
+}
+TEST(testVectorOperatorLessThan) {
+
+}
+TEST(testVectorOperatorLessThanOrEqual) {
+
+}
+
+
+
 TEST(test) {
 
 }
@@ -202,8 +295,36 @@ TEST(test) {
 TEST(test) {
 
 }
+TEST(test) {
 
- 
+}
+TEST(test) {
+
+}
+TEST(test) {
+
+}
+TEST(test) {
+
+}
+ TEST(test) {
+
+}
+TEST(test) {
+
+}
+TEST(test) {
+
+}
+TEST(test) {
+
+}
+TEST(test) {
+
+}
+TEST(test) {
+
+}
 
 */
 
