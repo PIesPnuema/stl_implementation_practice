@@ -50,7 +50,8 @@ root_repo/ stl_implementation_practice
     └── VectorTests.cpp
 ```
 
-### TODO
+### TODO 
+Visit the [checklist](https://github.com/PIesPnuema/stl_implemetation_practice/blob/main/TODO/check_list.md) for a detailed list of TODO's.
 - [ ] Finish Vector.h / add more tests
 - [ ] Check Vector.h for exception safety and refine algorithms
 - [ ] Add features to dlist.h
