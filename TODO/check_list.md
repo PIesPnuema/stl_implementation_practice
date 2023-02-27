@@ -43,6 +43,7 @@ Vector<T>
 | [x] ReAlloc() | [x] TEST(ReAlloc) |
 
 Vector<T>::iterator
+| --- | --- |
 | Defined Member Functions | Written Unit Tests |
 | [x] defaultCtor() | [x] TEST(IteratorDefaultCtor) |
 | [x] explicitCtor() | [x] TEST(iteratorExplicitCtor) |
@@ -69,6 +70,7 @@ Vector<T>::iterator
 
 
 Vector<T>::const_iterator
+| --- | --- |
 | Defined Member Functions | Written Unit Tests |
 | [ ] defaultCtor() | [ ] TEST() |
 | [ ] explicitCtor() | [ ] TEST() |
