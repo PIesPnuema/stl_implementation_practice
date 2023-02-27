@@ -11,7 +11,7 @@ Check list is based upon interface for vector.h
   
 ### Vector<T>
   
-- [  ] Vector<T> Finished
+- [ ] Vector<T> Finished
   
 | Defined Member Functions | Written Unit Tests |
 | --- | --- |
@@ -51,7 +51,7 @@ Check list is based upon interface for vector.h
 
 ### Vector<T> iterator
  
-- [  ] Vector<T>::iterator
+- [ ] Vector<T>::iterator
 
 | Defined Member Functions | Written Unit Tests |
 | --- | --- |
@@ -81,7 +81,7 @@ Check list is based upon interface for vector.h
 ### Vector<T> const_iterator 
  TODO: To become truly const correct I need to make a whole seperate const_iterator class
   
-- [  ] Vector<T>::const_iterator finished
+- [ ] Vector<T>::const_iterator finished
 
 | Defined Member Functions | Written Unit Tests |
 | --- | --- |
