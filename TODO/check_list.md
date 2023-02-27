@@ -49,9 +49,9 @@ Check list is based upon interface for vector.h
 | [x] Swap() | [x] TEST(Swap) |
 | [x] ReAlloc() | [x] TEST(ReAlloc) |
 
-### Vector<T>::iterator
+### Vector<T> iterator
  
-- [ ] Vector<T> iterator
+- [ ] Vector<T>::iterator
 
 | Defined Member Functions | Written Unit Tests |
 | --- | --- |
