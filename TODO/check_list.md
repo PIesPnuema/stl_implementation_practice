@@ -5,7 +5,7 @@ Sections: [Vector](#vector) | [dlist](#dlist) | [Queue](#queue)
 ----
 
 ## Vector
-[Vector<T>](#Vector<T>) | [Vector<T>::iterator](#Vector<T>::iterator) | [Vector<T>::const_iterator](#Vector<T>::const_iterator)
+[Vector<T>](#Vector<T>) | [Vector<T> iterator](#Vector<T>%20iterator) | [Vector<T> const_iterator](#Vector<T>%20const_iterator)
 
 Check list is based upon interface for vector.h
   
@@ -51,7 +51,7 @@ Check list is based upon interface for vector.h
 
 ### Vector<T>::iterator
  
-- [ ] Vector<T>::iterator
+- [ ] Vector<T> iterator
 
 | Defined Member Functions | Written Unit Tests |
 | --- | --- |
@@ -78,7 +78,7 @@ Check list is based upon interface for vector.h
 | [x] operator<=() | [x] TEST(IteratorOperatorLessThanOrEqual) |
 | [x] operator[]() | [ ] TEST(IteratorSubscriptOperator) |
 
-### Vector<T>::const_iterator 
+### Vector<T> const_iterator 
   
 - [ ] Vector<T>::const_iterator finished
 
