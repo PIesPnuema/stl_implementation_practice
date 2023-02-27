@@ -5,7 +5,7 @@ Sections: [Vector](#vector) | [dlist](#dlist) | [Queue](#queue)
 ----
 
 ## Vector
-[Vector<T>](#Vector<T>) | [Vector<T> iterator](#Vector<T>%20iterator) | [Vector<T> const_iterator](#Vector<T>%20const_iterator)
+[Vector<T>](#Vector<T>) | [Vector<T> iterator](https://github.com/PIesPnuema/stl_implemetation_practice/blob/main/TODO/check_list.md#vector-iterator) | [Vector<T> const_iterator](#Vector<T>%20const_iterator)
 
 Check list is based upon interface for vector.h
   
