@@ -3,9 +3,13 @@
 Sections: [Vector](#vector) | [dlist](#dlist) | [Queue](#queue)
 
 ## Vector
-Check list is based upon interface for vector.h
 
-Vector<T>
+Check list is based upon interface for vector.h
+  
+ Vector<T>
+  
+- [ ] Vector<T> Finished
+  
 | Defined Member Functions | Written Unit Tests |
 | --- | --- |
 | [x] defaultCtor() | [x] TEST(DefaultConstructor) |
@@ -43,6 +47,8 @@ Vector<T>
 | [x] ReAlloc() | [x] TEST(ReAlloc) |
 
 Vector<T>::iterator
+ 
+- [ ] Vector<T>::iterator
 
 | Defined Member Functions | Written Unit Tests |
 | --- | --- |
@@ -69,8 +75,9 @@ Vector<T>::iterator
 | [x] operator<=() | [x] TEST(IteratorOperatorLessThanOrEqual) |
 | [x] operator[]() | [ ] TEST(IteratorSubscriptOperator) |
 
-
-Vector<T>::const_iterator
+Vector<T>::const_iterator finished
+  
+- [ ] Vector<T>::const_iterator finished
 
 | Defined Member Functions | Written Unit Tests |
 | --- | --- |
@@ -94,6 +101,7 @@ Vector<T>::const_iterator
 | [ ] operator<=() | [ ] TEST() |
 | [ ] operator[]() const | [ ] TEST() |
 
+----
 
 ## dlist
 
@@ -105,7 +113,8 @@ Vector<T>::const_iterator
 | [ ] function_name() | [ ] TEST() |
 | [ ] function_name() | [ ] TEST() |
 
-
+----
+  
 ## Queue
 
 | Defined Member Functions | Written Unit Tests |
