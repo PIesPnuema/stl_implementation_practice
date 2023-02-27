@@ -1,0 +1,6 @@
+/home/pnuema1.618/programming/cplusplus/expiriment/stl_implimitation_practice/CMakeFiles/STLPROJECT.dir
+/home/pnuema1.618/programming/cplusplus/expiriment/stl_implimitation_practice/CMakeFiles/edit_cache.dir
+/home/pnuema1.618/programming/cplusplus/expiriment/stl_implimitation_practice/CMakeFiles/rebuild_cache.dir
+/home/pnuema1.618/programming/cplusplus/expiriment/stl_implimitation_practice/UnitTest++/src/CMakeFiles/UnitTest++.dir
+/home/pnuema1.618/programming/cplusplus/expiriment/stl_implimitation_practice/UnitTest++/src/CMakeFiles/edit_cache.dir
+/home/pnuema1.618/programming/cplusplus/expiriment/stl_implimitation_practice/UnitTest++/src/CMakeFiles/rebuild_cache.dir

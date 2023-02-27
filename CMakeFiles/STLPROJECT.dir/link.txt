@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/STLPROJECT.dir/src/main.cpp.o -o STLPROJECT  -Wl,-rpath,/home/pnuema1.618/programming/cplusplus/expiriment/stl_implimitation_practice/UnitTest++/src UnitTest++/src/libUnitTest++.so 

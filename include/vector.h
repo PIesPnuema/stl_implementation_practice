@@ -7,7 +7,9 @@
  *
  *   Program output
  *   --------------
- *   Copy of std::vector. Does not provide template for a specific allocator.
+ *   recreating the std::vector. Does not provide template for a specific allocator.
+ *   
+ *   TODO: create a const_iterator specializaion class for use with const Vector<T>
  *   
  */
 
@@ -16,10 +18,12 @@
 #define AARONCARROLL_VECTOR_H
 
 #include <algorithm>
-#include <iostream>
-#include <cstdint>
 #include <cassert>
 #include <cstddef>
+#include <cstdint>
+#include <iostream>
+#include <type_traits>
+#include <utility>
 
 namespace AaronCarroll {
 
@@ -154,6 +158,7 @@ namespace AaronCarroll {
 
         iterator_reference operator+(size_t size); 
         difference_type operator-(const_iterator_reference other) const; 
+        iterator_reference operator-(size_t size);
 
         // comparison operators
         
@@ -233,15 +238,32 @@ namespace AaronCarroll {
     Vector<T>::Vector(const Vector& other) {
         pointer tmp = new value_type[other.capacity_];
         std::copy(other.array_, other.array_ + other.size_, tmp);
-        Swap(tmp); 
+        array_ = tmp;
+        size_ = other.size_;
+        capacity_ = other.capacity_;
     }
     
-    // move ctor
+
+
+    /*
+     *  move ctor
+     *  ---------
+     *  All we need here is Swap(other); This is able to work only because
+     *  we defaulted the data members to the proper value for move semantic 
+     *  like so:
+     *  
+     *  Default Values:
+     *   pointer array_ = nullptr;
+     *   size_t size_ = 0; 
+     *   size_t capacity_ = 0;
+     *
+     */
 
     template <typename T>
     Vector<T>::Vector(Vector&& other) {
         Swap(other);
     }
+
     
     // operator=
 
@@ -285,12 +307,20 @@ namespace AaronCarroll {
         return capacity_;
     }
     
-    // operator [] const
-    
+
+    /*
+     *  operator [] const
+     *  -----------------
+     *  DUMB misunderstanding learned here. You cannot write a unit test that
+     *  and have a try and catch block to 
+     */
+  
     template <typename T>                               
     typename Vector<T>::const_reference
     Vector<T>::operator[](size_t index) const {
-        assert(index <= size_ && index >= 0);
+        if (size_ <= index || index < 0) {
+            throw std::out_of_range("Index out of range.");
+        }
         return array_[index];
     }
 
@@ -299,7 +329,7 @@ namespace AaronCarroll {
     template <typename T>                               
     typename Vector<T>::const_reference 
     Vector<T>::front() const {
-        return array_;
+        return *array_;
     }
 
     // back() const
@@ -307,7 +337,7 @@ namespace AaronCarroll {
     template <typename T>
     typename Vector<T>::const_reference 
     Vector<T>::back() const {
-        return array_ + size_ - 1;
+        return array_[size_ - 1];
     }
     
     /*
@@ -319,13 +349,14 @@ namespace AaronCarroll {
     template <typename T>
     typename Vector<T>::const_iterator 
     Vector<T>::cBegin() const {
-        return const_iterator(array_);
+        return typename Vector<T>::iterator::const_iterator(array_);
     }
     
+    // is this needed considering the issue #001
     template <typename T>
     typename Vector<T>::const_iterator 
     Vector<T>::begin() const {
-        return iterator(array_);
+        return typename Vector<T>::iterator::const_iterator(array_);
     }
 
     /*
@@ -354,9 +385,8 @@ namespace AaronCarroll {
     void 
     Vector<T>::print() const {
         std::for_each(array_, array_ + size_,[](value_type element) {
-                std::cout << element << ", ";
+                std::cout << element << " ";
         });
-        std::cout << "\n";
     }
 
     /*
@@ -435,6 +465,10 @@ namespace AaronCarroll {
      *  of the pointer to the end of the array_ as to not modify the 
      *  array_ end pointer its self. The iterator is only used to traverse 
      *  the array_
+     *  
+     *  Remember to not attempt to dereference the end iterator. Use arithmatic
+     *  overloaded operator to decrement by one to dereference the last valid
+     *  element in the array. 
      */
     
     template <typename T>
@@ -442,8 +476,6 @@ namespace AaronCarroll {
     Vector<T>::end() {
         return iterator(array_ + size_);
     }
-
-    
 
     /*
      *   Vector private member functions -> helpers            
@@ -609,13 +641,24 @@ namespace AaronCarroll {
     // for pointer arithmatic and std::difference algo
 
     // NOTE ITERATOR_TRAITS NOT DEFINED AND BREAKS DLIST, QUEUE SO WE WONT 
-    // USE STD::DISTANCE
+    // USE STD::DISTANCE for our Vector class until we fix dlist.
     template <typename T>
     typename Vector<T>::iterator::difference_type
     Vector<T>::iterator::operator-(const_iterator_reference other) const{
         return iter_ - other.iter_;
     }
     
+    // operator-
+    // Dont forget to use the compound operator -=
+    // You forgot the = and this was a hard bug to find.
+    template <typename T>
+    typename Vector<T>::iterator::iterator_reference
+    Vector<T>::iterator::operator-(size_t size) {
+        iter_ -= size;
+        return *this;
+    }
+
+ 
     /*
      *  iterator comparison operators
      *  -----------------------------
