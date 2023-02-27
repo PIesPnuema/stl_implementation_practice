@@ -6,7 +6,7 @@
 #Vector/UnitTest++/src/cmake-build-debug/*
 #Vector/UnitTest++/src/Posix/*
 #Vector/UnitTest++/src/.idea
-Vector/UnitTest++/libUnitTest++.a
+UnitTest++/libUnitTest++.a
 #Vector/UnitTest++/src/tests/*
 #Vector/UnitTest++/src/*.d
-Vector/build/*
+build/*
