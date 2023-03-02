@@ -11,7 +11,7 @@ compile tests using CMake.
 - Structure of the code regarding comments and style.
 - Errors. Please point them out. 
 
-I wish to take in any feed back to help expand my knowledge. Thanks for stoping by. 
+I'm grateful for any feed back to help expand my knowledge. Thanks for stoping by. 
 
 ## TODO:
 [TODO->List](https://github.com/PIesPnuema/stl_implemetation_practice/blob/main/TODO/check_list.md)
