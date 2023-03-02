@@ -1,7 +1,7 @@
 
 # stl_implementation_practice
 
-This repo is all about recreating the std::containers and learning along the way. Take a look around. All the container templates can be found inside the [include](https://github.com/PIesPnuema/stl_implementation_practice/tree/main/include) directory. 
+This repo is all about recreating the std::containers and learning along the way. Take a look around. All the container templates can be found inside the [include](https://github.com/PIesPnuema/stl_implemetation_practice/tree/main/include) directory. 
 
 #### Sections: [Test](#test) | [Project_File_Structure](#project_file_structure) | [TODO](#todo)
 
