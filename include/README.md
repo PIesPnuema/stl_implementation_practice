@@ -14,6 +14,7 @@ compile tests using cmake.
 I wish to take in any feed back to help expand my knowledge. Thanks for stoping by. 
 
 ## TODO:
+[TODO->List](https://github.com/PIesPnuema/stl_implemetation_practice/blob/main/TODO/check_list.md)
 
 1. Finish the vector.h 
 2. add more features to dlist.h
