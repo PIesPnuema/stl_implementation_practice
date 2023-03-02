@@ -476,7 +476,58 @@ namespace AaronCarroll {
     Vector<T>::end() {
         return iterator(array_ + size_);
     }
+    
 
+    /*
+     *  comparison operators
+     *  --------------------
+     */
+
+    template <typename T>
+    bool 
+    Vector<T>::operator==(const Vector& other) const {
+        if (other.size_ != size_) 
+            return false;
+
+        if (this == &other)
+            return true;
+
+        return std::equal(array_, array_ + size_, other.array_);
+    }
+
+    template <typename T>
+    bool 
+    Vector<T>::operator!=(const Vector& other) const {
+        return !operator==(other);
+    }
+
+    template <typename T>
+    bool 
+    Vector<T>::operator>(const Vector& other) const {
+        return other < *this;
+    }
+
+    template <typename T>
+    bool 
+    Vector<T>::operator>=(const Vector& other) const {
+        return !operator<(other);
+    }
+
+    template <typename T>
+    bool 
+    Vector<T>::operator<(const Vector& other) const {
+        return std::lexicographical_compare(array_, array_ + size_, 
+                other.array_, other.array_ + other.size_);
+    }
+
+    template <typename T>
+    bool 
+    Vector<T>::operator<=(const Vector& other) const {
+        return !operator>(other);
+    }
+
+
+     
     /*
      *   Vector private member functions -> helpers            
      *   ------------------------------------------
@@ -692,14 +743,14 @@ namespace AaronCarroll {
     bool
     Vector<T>::iterator::operator>=(
             typename Vector<T>::iterator::const_iterator_reference other) const {
-        return operator>(other) || operator==(other);
+        return !operator<(other);
     }
 
     template <typename T>
     bool
     Vector<T>::iterator::operator<(
             typename Vector<T>::iterator::const_iterator_reference other) const {
-        return !operator>=(other);
+        return other > *this;
     }
 
     template <typename T>

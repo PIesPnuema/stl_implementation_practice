@@ -240,28 +240,103 @@ TEST(BeginAndEnd) {
     CHECK_EQUAL(last - first, SIZE);
 }
 
-/*
-TEST(OperatorEqual) {
+TEST(VecOperatorEqual) {
+    Vector<int> vec1 = {0,1,2,3};
+    Vector<int> vec2 = {0,1,2,3};
+    Vector<int> vec3 = {3,2,1,0};
+    Vector<std::string> vecStr1 = {"hello", "people", "you are fabulous"};
+    Vector<std::string> vecStr2 = {"hello", "people", "you are fabulous"};
+    Vector<std::string> vecStr3 = {"people", "you are fabulous", "hello"};
+
+    CHECK(vec1 == vec2);
+    CHECK(!(vec1 == vec3));
+    CHECK(vecStr1 == vecStr2);
+    CHECK(!(vecStr2 == vecStr3));
+}
+
+
+TEST(VecOperatorNotEqual) {
+ Vector<int> vec1 = {0,1,2,3};
+    Vector<int> vec2 = {0,1,2,3};
+    Vector<int> vec3 = {3,2,1,0};
+    Vector<std::string> vecStr1 = {"hello", "people", "you are fabulous"};
+    Vector<std::string> vecStr2 = {"hello", "people", "you are fabulous"};
+    Vector<std::string> vecStr3 = {"people", "you are fabulous", "hello"};
+
+    CHECK(!(vec1 != vec2));
+    CHECK(vec1 != vec3);
+    CHECK(!(vecStr1 != vecStr2));
+    CHECK(vecStr2 != vecStr3);
+}
+
+TEST(VecOperatorGreaterThan) {
+    Vector<int> vec1 = {0,1,2,3};
+    Vector<int> vec2 = {0,1,2,3};
+    Vector<int> vec3 = {3,2,1,0};
+    Vector<std::string> vecStr1 = {"hello", "people", "you are fabulous"};
+    Vector<std::string> vecStr2 = {"hello", "people", "you are fabulous"};
+    Vector<std::string> vecStr3 = {"people", "you are fabulous", "hello"};
+
+    CHECK(!(vec1 > vec2));
+    CHECK(!(vec1 > vec3));
+    CHECK(vec3 > vec1);
+
+    CHECK(vecStr3 > vecStr2);
+    CHECK(!(vecStr2 > vecStr3));
+}
+
+
+TEST(VecOperatorGreaterThanOrEqual) {
+    Vector<int> vec1 = {0,1,2,3};
+    Vector<int> vec2 = {0,1,2,3};
+    Vector<int> vec3 = {3,2,1,0};
+    Vector<std::string> vecStr1 = {"hello", "people", "you are fabulous"};
+    Vector<std::string> vecStr2 = {"hello", "people", "you are fabulous"};
+    Vector<std::string> vecStr3 = {"people", "you are fabulous", "hello"};
+
+    CHECK(vec1 >= vec2);
+    CHECK(!(vec1 >= vec3));
+    CHECK(vec3 >= vec1);
+
+    CHECK(vecStr3 >= vecStr2);
+    CHECK(!(vecStr2 >= vecStr3));
+    CHECK(vecStr1 >= vecStr2);
+}
+
+TEST(VecOperatorLessThan) {
+    Vector<int> vec1 = {0,1,2,3};
+    Vector<int> vec2 = {0,1,2,3};
+    Vector<int> vec3 = {3,2,1,0};
+    Vector<std::string> vecStr1 = {"hello", "people", "you are fabulous"};
+    Vector<std::string> vecStr2 = {"hello", "people", "you are fabulous"};
+    Vector<std::string> vecStr3 = {"people", "you are fabulous", "hello"};
+
+    CHECK(!(vec1 < vec2));
+    CHECK(vec1 < vec3);
+    CHECK(!(vec3 < vec1));
+
+    CHECK(!(vecStr3 < vecStr2));
+    CHECK(vecStr2 < vecStr3);
 
 }
 
-TEST(OperatorNotEqual) {
+TEST(VecOperatorLessThanOrEqual) {
+    Vector<int> vec1 = {0,1,2,3};
+    Vector<int> vec2 = {0,1,2,3};
+    Vector<int> vec3 = {3,2,1,0};
+    Vector<std::string> vecStr1 = {"hello", "people", "you are fabulous"};
+    Vector<std::string> vecStr2 = {"hello", "people", "you are fabulous"};
+    Vector<std::string> vecStr3 = {"people", "you are fabulous", "hello"};
 
+    CHECK(vec1 <= vec2);
+    CHECK(vec1 <= vec3);
+    CHECK(!(vec3 <= vec1));
+
+    CHECK(!(vecStr3 <= vecStr2));
+    CHECK(vecStr2 <= vecStr3);
+    CHECK(vecStr1 <= vecStr2);
 }
 
-TEST(OperatorGreaterThan) {
-
-}
-TEST(OperatorGreaterThanOrEqual) {
-
-}
-TEST(OperatorLessThan) {
-
-}
-TEST(OperatorLessThanOrEqual) {
-
-}
-*/ 
 
 // same as move b/c we know it calls swap. Kinda pointless
 TEST(Swap) {
@@ -379,6 +454,7 @@ TEST(IteratorOperatorGreaterThan) {
     Vector<int>::iterator last = myVec.end();
     CHECK(!(first > last));
     CHECK(last > first);
+    CHECK(!(first > first));
 }
 
 TEST(IteratorOperatorGreaterThenOrEqual) {
@@ -397,6 +473,7 @@ TEST(IteratorOperatorLessThan) {
     Vector<int>::iterator last = myVec.end();
     CHECK(first < last);
     CHECK(!(last < first));
+    CHECK(!(first < first));
 }
 
 TEST(IteratorOperatorLessThanOrEqual) {
@@ -408,12 +485,12 @@ TEST(IteratorOperatorLessThanOrEqual) {
     CHECK(!(last <= first));
 }
 
+/*
 TEST(IteratorSubscriptOperator) {
 
 }
 
 
-/*
 TEST(test) {
 
 }
