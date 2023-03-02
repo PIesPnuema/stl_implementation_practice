@@ -249,6 +249,7 @@ TEST(VecOperatorEqual) {
     Vector<std::string> vecStr3 = {"people", "you are fabulous", "hello"};
 
     CHECK(vec1 == vec2);
+    CHECK(vec1 == vec1);
     CHECK(!(vec1 == vec3));
     CHECK(vecStr1 == vecStr2);
     CHECK(!(vecStr2 == vecStr3));
@@ -485,12 +486,19 @@ TEST(IteratorOperatorLessThanOrEqual) {
     CHECK(!(last <= first));
 }
 
-/*
+
 TEST(IteratorSubscriptOperator) {
+    Vector<int> myVec = {0,1,2,3};
+    Vector<int>::iterator first = myVec.begin();
+    Vector<int>::iterator last = myVec.end();
+    CHECK_EQUAL(first[0], 0);
+    CHECK_EQUAL(first[1], 1);
+    CHECK_EQUAL(first[2], 2);
+    CHECK_EQUAL(first[3], 3);
 
 }
 
-
+/*
 TEST(test) {
 
 }

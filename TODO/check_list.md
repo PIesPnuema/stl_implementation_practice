@@ -36,16 +36,16 @@ Check list is based upon interface for vector.h
 | [ x ] popBack() | [ x ] TEST(PopBack) |
 | [  ] erase() | [  ] TEST(Erase) |
 | [ x ] operator[]() | [ x ] TEST(SubScript) |
-| [  ] front() | [  ] TEST() |
-| [  ] back() | [  ] TEST() |
+| [ x ] front() | [ x ] TEST(Front) |
+| [ x ] back() | [ x ] TEST(Back) |
 | [ x ] begin() | [ x ] TEST(BeginAndEnd) |
 | [ x ] end() | [ x ] TEST(BeginAndEnd) |
-| [  ] operator==() | [  ] TEST(OperatorEqual) |
-| [  ] operator!=() | [  ] TEST(OperatorNotEqual) |
-| [  ] operator>() | [  ] TEST(OperatorGreaterThan) |
-| [  ] operator>=() | [  ] TEST(OperatorGreaterThanOrEqual) |
-| [  ] operator<() | [  ] TEST(OperatorLessThan) |
-| [  ] operator<=() | [  ] TEST(OperatorLessThanOrEqual) |
+| [ x ] operator==() | [ x ] TEST(VeccOperatorEqual) |
+| [ x ] operator!=() | [ x ] TEST(VecOperatorNotEqual) |
+| [ x ] operator>() | [ x ] TEST(VecOperatorGreaterThan) |
+| [ x ] operator>=() | [ x ] TEST(VecOperatorGreaterThanOrEqual) |
+| [ x ] operator<() | [ x ] TEST(VecOperatorLessThan) |
+| [ x ] operator<=() | [ x ] TEST(VecOperatorLessThanOrEqual) |
 | [ x ] Swap() | [ x ] TEST(Swap) |
 | [ x ] ReAlloc() | [ x ] TEST(ReAlloc) |
 
@@ -58,7 +58,7 @@ Check list is based upon interface for vector.h
 | [ x ] defaultCtor() | [ x ] TEST(IteratorDefaultCtor) |
 | [ x ] explicitCtor() | [ x ] TEST(iteratorExplicitCtor) |
 | [ x ] operator=() | [ x ] TEST(iteratorOperatorEqual) |
-| [  ] ~destructor() | [  ] TEST() |
+| [ x ] ~destructor() | [  ] TEST() |
 | [ x ] operator*() const | [  ] TEST(IteratorDereferenceOperatorConst) |
 | [ x ] operator->() const | [  ] TEST(IteratorArrowOperatorConst) |
 | [ x ] operator*() | [  ] TEST(IteratorDereferenceOperator) |
@@ -76,7 +76,7 @@ Check list is based upon interface for vector.h
 | [ x ] operator>=() | [ x ] TEST(IteratorOperatorGreaterThenOrEqual) |
 | [ x ] operator<() | [ x ] TEST(IteratorOperatorLessThan) |
 | [ x ] operator<=() | [ x ] TEST(IteratorOperatorLessThanOrEqual) |
-| [ x ] operator[]() | [  ] TEST(IteratorSubscriptOperator) |
+| [ x ] operator[]() | [ x ] TEST(IteratorSubscriptOperator) |
 
 ### Vector<T> const_iterator 
  TODO: To become truly const correct I need to make a whole seperate const_iterator class
