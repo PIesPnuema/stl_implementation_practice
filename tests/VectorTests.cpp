@@ -159,10 +159,24 @@ TEST(getCapacity) {
 
 TEST(SubScriptConst) {
     const Vector<int> myVecConst = {0,1,2,3,4,5,6,7,8};
-    
-    // myVecConst[2] = 4; // This will throw an exception
-  
+
+#if TEST_CONST_COMPILE_TIME_ERRORS_   
+    myVecConst[2] = 4; // This will throw an exception
+#endif 
+
     CHECK_EQUAL(myVecConst[2], 2);
+
+    try {
+        myVecConst[12];
+    }
+    catch (const std::exception& ex) {
+
+#if PRINT_VALUES_
+        std::cerr << ex.what() << " SubScriptConst SUCCESS\n";
+#endif
+        
+        CHECK(true);
+    }
 }
 
 TEST(FrontConst) {
@@ -225,11 +239,27 @@ TEST(PopBack) {
     CHECK_EQUAL(myVecStr.getSize(), 1);
 }
 
-/* Need to implement function in vector.h
-TEST(Erase) {
 
+TEST(Erase) {
+    Vector<int> myVec = {0,1,2,3,4,5,6,7,8,9,10};
+    myVec.erase(myVec.begin() + 2);
+#if PRINT_VALUES_
+    myVec.print();
+    std::cout << " Erase() expected: {0,1,3,4,5,6,7,8,9,10}; \n";
+#endif 
+    CHECK_EQUAL(myVec[2], 3);
+    try {
+        myVec.erase(myVec.begin() - 2);
+    }
+    catch (const std::exception& ex) {
+
+#if PRINT_VALUES_
+        std::cerr << ex.what() << " Erase SUCCESSS\n";
+#endif
+        CHECK(true);
+    }
 }
-*/ 
+
 
 TEST(SubScript) {
     Vector<int> myVec;
@@ -238,6 +268,16 @@ TEST(SubScript) {
     myVec.pushBack(INTVALUE + 3);
     CHECK(myVec[0] == INTVALUE && myVec[1] == INTVALUE + 2 && 
             myVec[2] == INTVALUE + 3);
+    try {
+        myVec[6];
+    }
+    catch (const std::exception& ex) {
+#if PRINT_VALUES_
+        std::cerr << ex.what() << " Subscript SUCCESS\n";
+#endif
+
+        CHECK(true);
+    }
 }
 
 TEST(Front) {
@@ -396,6 +436,14 @@ TEST(ReAllocPushBack) {
 }
 
 // Vector Iterator tests ------------------------------------------------------
+#if PRINT_VALUES_
+TEST(expectedValuesOfIteratorOperators) {
+    Vector<int> myVec = {0,1,2,3,4,5};
+    Vector<int>::iterator first = myVec.begin();
+    std::cout << "first object with dereferencing: " << *first << "\n";
+ }
+#endif
+
 
 TEST(IteratorDefaultCtor) {
     Vector<int> myVec = {0,1,2,3};

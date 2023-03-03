@@ -155,10 +155,11 @@ namespace AaronCarroll {
         const_iterator operator--(int);
         
         // arithmatic operator 
-
-        iterator_reference operator+(size_t size); 
+        iterator operator+(size_t size) const; 
+        iterator_reference operator+=(size_t size); 
         difference_type operator-(const_iterator_reference other) const; 
-        iterator_reference operator-(size_t size);
+        iterator_reference operator-=(size_t size);
+        iterator operator-(size_t size) const;
 
         // comparison operators
         
@@ -318,9 +319,9 @@ namespace AaronCarroll {
     template <typename T>                               
     typename Vector<T>::const_reference
     Vector<T>::operator[](size_t index) const {
-        if (size_ <= index || index < 0) {
-            throw std::out_of_range("Index out of range.");
-        }
+        if (size_ <= index || index < 0) 
+            throw std::out_of_range("Subscript index out of range.");
+        
         return array_[index];
     }
 
@@ -416,7 +417,9 @@ namespace AaronCarroll {
     template <typename T>
     typename Vector<T>::reference
     Vector<T>::operator[](size_t index) {
-        assert(index <= size_ && index >= 0);
+        if (size_ <= index || index < 0) 
+            throw std::out_of_range("Subscript index out of range.");
+
         return array_[index];
     }
     
@@ -442,6 +445,26 @@ namespace AaronCarroll {
             --size_;
         }
     }
+
+    template <typename T>
+    typename Vector<T>::iterator 
+    Vector<T>::erase(typename Vector<T>::iterator pos) {
+        // testing if position is within the array_
+        if (pos < begin() || pos >= end())
+            throw std::out_of_range("Call to erase() with Invalid position");
+
+        auto dist = std::distance(array_, &(*pos));
+        
+        // steps each element back by one after pos.
+        // I had to fix operator+ overload for this bug.
+        for (iterator index = pos; index != end() - 1; ++index) 
+            *index = std::move(*(index + 1));
+        
+        --size_;
+        return begin() + dist;    
+    }
+
+
 
     /*
      *  begin() 
@@ -538,7 +561,6 @@ namespace AaronCarroll {
     template <typename T>
     void
     Vector<T>::ReAlloc(size_t newCapacity) {
-        
         pointer temp = new Vector::value_type[newCapacity];
 
         // shrink only
@@ -682,8 +704,14 @@ namespace AaronCarroll {
     // Dont forget to use the compound operator +=
     // You forgot the = and this was a hard bug to find.
     template <typename T>
+    typename Vector<T>::iterator
+    Vector<T>::iterator::operator+(size_t size) const {
+        return iterator(iter_ + size);
+    }
+
+    template <typename T>
     typename Vector<T>::iterator::iterator_reference
-    Vector<T>::iterator::operator+(size_t size) {
+    Vector<T>::iterator::operator+=(size_t size) {
         iter_ += size;
         return *this;
     }
@@ -704,11 +732,16 @@ namespace AaronCarroll {
     // You forgot the = and this was a hard bug to find.
     template <typename T>
     typename Vector<T>::iterator::iterator_reference
-    Vector<T>::iterator::operator-(size_t size) {
+    Vector<T>::iterator::operator-=(size_t size) {
         iter_ -= size;
         return *this;
     }
 
+    template <typename T>
+    typename Vector<T>::iterator
+    Vector<T>::iterator::operator-(size_t size) const {
+        return iterator(iter_ - size);
+    }
  
     /*
      *  iterator comparison operators
