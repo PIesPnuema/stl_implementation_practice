@@ -19,7 +19,7 @@ Check list is based upon interface for vector.h
 | [ x ] fillValueCtor() | [ x ] TEST(FillValueCtor) |
 | [ x ] fillCtor() | [ x ] TEST(FillCtor) |
 | [ x ] initializerCtor() | [ x ] TEST(InitializerListCtor) |
-| [  ] rangeCtor() | [  ] TEST(RangeCtor) |
+| [ x ] rangeCtor() | [ x ] TEST(RangeCtor) |
 | [ x ] copyCtor() | [ x ] TEST(CopyCtor) |
 | [ x ] moveCtor() | [ x ] TEST(MoveCtor) |
 | [ x ] operator=() | [ x ] TEST(OperatorEqual) |

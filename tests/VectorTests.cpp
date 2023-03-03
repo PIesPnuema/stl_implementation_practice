@@ -27,6 +27,10 @@ using namespace UnitTest;
 #include "test_constants.h"
 using namespace VectorTestConstants;
 
+// Tests printed values of arrays.
+#define PRINT_VALUES_ 0 
+// Tests compiler error for attempting to assign a value to a const object.
+#define TEST_CONST_COMPILE_TIME_ERRORS_ 0
 
 // Vector ---------------------------------------------------------------------
 
@@ -85,14 +89,21 @@ TEST(InitializerListCtor) {
     CHECK_EQUAL(myVecConst[2], 2);
 }
 
-/* TODO
-
-
 TEST(RangeCtor) {
+    Vector<int> myVec = {0,1,2,3,4,5,6,7,8,9,10};
+    Vector<int>::iterator first = myVec.begin();
+    Vector<int>::iterator last = myVec.end();
+    Vector<int> rangeVec(first, last);
 
+#if PRINT_VALUES_  
+    rangeVec.print();
+    printf(" -> Range constructor values 0-10 SUCCESSFUL\n");
+#endif 
+
+    CHECK(myVec == rangeVec);
 }
 
-*/
+
 
 TEST(CopyCtor) {
     Vector<int> myVec1(SIZE, INTVALUE);
@@ -157,13 +168,19 @@ TEST(SubScriptConst) {
 TEST(FrontConst) {
     const Vector<int> myVec = {0,1,2,3,4,5};
     CHECK_EQUAL(myVec.front(), 0);
-    // CHECK_EQUAL(myVec.front() = 5, 5);   // will SUCCESSFULLY FAIL
+
+#if TEST_CONST_COMPILE_TIME_ERRORS_
+    CHECK_EQUAL(myVec.front() = 5, 5);   // will SUCCESSFULLY FAIL
+#endif
 }
 
 TEST(BackConst) {
     const Vector<int> myVec = {0,1,2,3,4,5};
     CHECK_EQUAL(myVec.back(), 5);
-    // CHECK_EQUAL(myVec.back() = 3, 3);    // will SUCCESSFULLY FAIL
+
+#if TEST_CONST_COMPILE_TIME_ERRORS_
+    CHECK_EQUAL(myVec.back() = 3, 3);    // will SUCCESSFULLY FAIL
+#endif
 }
 
 /*
@@ -183,11 +200,13 @@ TEST(cEnd) {
 }
 */
 
+#if PRINT_VALUES_ 
 TEST(print) {
     Vector<int> myVec = {0,1,2,3,4,5};
     myVec.print();
     std::cout << "Print() SUCCESSFUL\n";
 }
+#endif
 
 TEST(PopBack) {
     Vector<int> myVec;
