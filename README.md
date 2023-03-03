@@ -27,20 +27,23 @@ cmake --build .
 
 ### Project_File_Structure
 ```
-root_repo/ stl_implementation_practice
+.
 ├── CMakeLists.txt
 ├── README.md
+├── TODO
+│   └── check_list.md
 ├── UnitTest++
 │   └── src
-│       ├── UnitTest++.h
-|       └── ...
-├── build   // You will need to create this directory
+│       ├── UnitTest.h
+│       └── ...
+├── docs
+│   ├── dlist_doc.md
+│   └── vector_doc.md
 ├── include
 │   ├── CMakeLists.txt
 │   ├── README.md
-│   ├── constants.h
 │   ├── dlist.h
-│   ├── dlist_README.md
+│   ├── test_constants.h
 │   └── vector.h
 ├── src
 │   └── main.cpp
