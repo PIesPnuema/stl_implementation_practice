@@ -33,5 +33,14 @@ will evaluate to false and not create undefined behavior its self. No idea
 what checking it is doing behind the scene. you could be more explicit by writting
 `if (array_ != nullptr)` but it is not necessary.
 
+- operator+() for iterator should not be implimented as += assignment. The return should be a 
+copy of the original. This bug was not allowing me to properly impliment the erase(). I was making 
+an assingment to the index instead of doing arithmatic and leaving the iterator unchanged. Look at
+the logic of the for loop for reference. The operator+() was implimented identical to operator+=().
+
+- adding #if SOMETHING annd #endif macros are helpful for printing info to the counsel testing the 
+compiler runtime errors, etc. Keep using them.
+
+- Can test throws by puting a CHECK(true); inside the catch if you intentianally try to throw an error.
 
 
