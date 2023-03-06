@@ -10,7 +10,7 @@ Sections: [Vector](#vector) | [dlist](#dlist) | [Queue](#queue)
 Check list is based upon interface for vector.h
   
 ### Vector<T>
-  
+- [ ] Write TEST_SUITS for test sections of the vector class 
 - [ ] Vector<T> Finished
   
 | Defined Member Functions | Written Unit Tests |
