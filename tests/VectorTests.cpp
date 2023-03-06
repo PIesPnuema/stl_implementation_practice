@@ -103,8 +103,6 @@ TEST(RangeCtor) {
     CHECK(myVec == rangeVec);
 }
 
-
-
 TEST(CopyCtor) {
     Vector<int> myVec1(SIZE, INTVALUE);
     Vector<int> myVec2(myVec1);
@@ -114,6 +112,7 @@ TEST(CopyCtor) {
         return element == INTVALUE;
     }));
 }
+
 TEST(MoveCtor) {
     Vector<int> myVec1(SIZE, INTVALUE);
     Vector<int> myVec2(std::move(myVec1));
