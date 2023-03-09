@@ -18,7 +18,7 @@
 #include <iostream>
 #include <utility>
 
-#include "vector.h"
+#include "Vector.h"
 using namespace Stl_Implementation_Practice::Vector;
 
 #include "UnitTest++.h"
