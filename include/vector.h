@@ -14,8 +14,8 @@
  */
 
 
-#ifndef AARONCARROLL_VECTOR_H
-#define AARONCARROLL_VECTOR_H
+#ifndef STL_IMPLEMENTATION_PRACTICE_VECTOR_H
+#define STL_IMPLEMENTATION_PRACTICE_VECTOR_H
 
 #include <algorithm>
 #include <cassert>
@@ -25,13 +25,14 @@
 #include <type_traits>
 #include <utility>
 
-namespace AaronCarroll {
+namespace Stl_Implementation_Practice { namespace Vector {
 
     template <typename T>
     class Vector {
      public:
         
         class iterator;
+        class const_iterator;
 
         // typedef's
         typedef T                        value_type;
@@ -39,7 +40,6 @@ namespace AaronCarroll {
         typedef const T*                 const_pointer;
         typedef T&                       reference;
         typedef const T&                 const_reference;
-        typedef const iterator           const_iterator;
         typedef typename std::ptrdiff_t  difference_type;
 
         // ctor's
@@ -108,11 +108,13 @@ namespace AaronCarroll {
     class Vector<T>::iterator : std::iterator<std::random_access_iterator_tag, T> {
      public:
         
-         // friend class
+        // friend class
+        
         friend class Vector<T>;
 
         
         // Vector Qualified dependant typedefs
+        
         typedef typename Vector<T>::value_type       value_type;
         typedef typename Vector<T>::pointer          pointer;
         typedef typename Vector<T>::const_pointer    const_pointer;
@@ -121,6 +123,7 @@ namespace AaronCarroll {
         typedef typename Vector<T>::difference_type  difference_type;
 
         // iterator typedefs
+        
         typedef const iterator                       const_iterator;
         typedef iterator&                            iterator_reference;
         typedef const iterator&                      const_iterator_reference;
@@ -131,12 +134,14 @@ namespace AaronCarroll {
         
         // constructors -> we do not need a move ctor in for an iterator b/c
         // we are not moving resources but mearly viewing them.
+        
         iterator();
         iterator(pointer ptr);
         // return type must not be const.
         iterator_reference operator=(const_iterator_reference other);
 
         // destructor
+        
         ~iterator() = default;
 
         // access operators
@@ -155,6 +160,7 @@ namespace AaronCarroll {
         const_iterator operator--(int);
         
         // arithmatic operator 
+        
         iterator operator+(size_t size) const; 
         iterator_reference operator+=(size_t size); 
         difference_type operator-(const_iterator_reference other) const; 
@@ -171,11 +177,89 @@ namespace AaronCarroll {
         bool operator<=(const_iterator_reference other) const;
 
         // subscript operator
-
         reference operator[](size_t size);
 
      private:
         pointer iter_;
+    };
+    
+    //-------------------------------------------------------------------------
+    // const iterator
+    // ------------------------------------------------------------------------
+
+    template <typename T>
+    class Vector<T>::const_iterator : 
+        public std::iterator<std::random_access_iterator_tag, const T> {
+     public:
+        
+        // friend class
+        
+        friend class Vector<T>;
+
+        // Vector qualified dependant typedefs
+        
+        typedef typename Vector<T>::value_type        value_type;
+        typedef typename Vector<T>::const_pointer     const_pointer;
+        typedef typename Vector<T>::const_reference   const_reference;
+        typedef typename Vector<T>::difference_type   difference_type;
+
+        // iterator typedefs
+        
+        typedef const_iterator&                       const_iterator_reference;
+        
+        // friend functions
+        
+        friend std::ostream& operator<<(std::ostream& os, 
+                const_iterator_reference it); 
+
+        // constructors
+        
+        const_iterator();
+        const_iterator(const_pointer ptr);
+        const_iterator(const iterator& other);
+
+        // assignment operator
+        const_iterator_reference operator=(const_iterator_reference other);
+
+        // destructor
+        
+        ~const_iterator() = default;
+
+        // access operators
+        
+        const_reference operator*() const;
+        const_pointer operator->() const;
+
+        // increment and decrement operators
+        
+        const_iterator_reference operator++();
+        const_iterator operator++(int);
+        const_iterator_reference operator--();
+        const_iterator operator--(int);
+
+        // arithmetic operators        
+        
+        const_iterator operator+(size_t size) const; 
+        const_iterator_reference operator+=(size_t size); 
+        difference_type operator-(const_iterator_reference other) const; 
+        const_iterator_reference operator-=(size_t size);
+        const_iterator operator-(size_t size) const;
+
+        // comparison operators
+        
+        bool operator==(const_iterator_reference other) const;
+        bool operator!=(const_iterator_reference other) const;
+        bool operator>(const_iterator_reference other) const;
+        bool operator>=(const_iterator_reference other) const;
+        bool operator<(const_iterator_reference other) const;
+        bool operator<=(const_iterator_reference other) const;
+
+        // subscript operator
+        
+        const_reference operator[](size_t size) const;
+
+     private:
+        const_pointer iter_;
     };
 
 // ****************************************************************************
@@ -286,10 +370,9 @@ namespace AaronCarroll {
             delete[] array_;
     }
 
-    /*
+    /*  ***********************************************************************
      *  accessors
-     *  ---------
-     *  Const functions that do not change and data members value.
+     *  ***********************************************************************
      */
 
     // getSize()
@@ -350,14 +433,14 @@ namespace AaronCarroll {
     template <typename T>
     typename Vector<T>::const_iterator 
     Vector<T>::cBegin() const {
-        return typename Vector<T>::iterator::const_iterator(array_);
+        return const_iterator(array_);
     }
     
     // is this needed considering the issue #001
     template <typename T>
     typename Vector<T>::const_iterator 
     Vector<T>::begin() const {
-        return typename Vector<T>::iterator::const_iterator(array_);
+        return const_iterator(array_);
     }
 
     /*
@@ -390,10 +473,9 @@ namespace AaronCarroll {
         });
     }
 
-    /*
+    /*  ***********************************************************************
      *  modifiers
-     *  ---------
-     *  Functions that change the value of the data memebers. 
+     *  ***********************************************************************
      */
 
     // front()
@@ -551,9 +633,9 @@ namespace AaronCarroll {
 
 
      
-    /*
+    /*   **********************************************************************
      *   Vector private member functions -> helpers            
-     *   ------------------------------------------
+     *   **********************************************************************
      */
 
     // ReAlloc()
@@ -587,6 +669,7 @@ namespace AaronCarroll {
 // iterator class definitions
 // ****************************************************************************
     
+    // 
     template <typename T>
     std::ostream& 
     operator<<(std::ostream& os, 
@@ -693,22 +776,20 @@ namespace AaronCarroll {
         return temp;
     }
     
-
-    
     /*
      *  iterator pointer arithmatic operators 
      *  -------------------------------------
      */
 
     // operator+
-    // Dont forget to use the compound operator +=
-    // You forgot the = and this was a hard bug to find.
     template <typename T>
     typename Vector<T>::iterator
     Vector<T>::iterator::operator+(size_t size) const {
         return iterator(iter_ + size);
     }
 
+    // Dont forget to use the compound operator +=
+    // You forgot the = and this was a hard bug to find.
     template <typename T>
     typename Vector<T>::iterator::iterator_reference
     Vector<T>::iterator::operator+=(size_t size) {
@@ -800,7 +881,209 @@ namespace AaronCarroll {
     Vector<T>::iterator::operator[](size_t size) {
         return *(iter_ + size);
     }
+    
 
-}
+// ****************************************************************************
+// const iterator
+// ****************************************************************************
+    
+    template <typename T>
+    std::ostream& 
+    operator<<(std::ostream& os, 
+            typename Vector<T>::const_iterator::const_iterator_reference it) {
+        os << *it;
+        return os;
+    }
+
+    /*
+     *  const_iterator constructors
+     *  ---------------------------
+     */
+    
+    // default ctor
+    template <typename T>
+    Vector<T>::const_iterator::const_iterator() : iter_(nullptr) {}
+    
+    // explicit ctor
+    template <typename T>
+    Vector<T>::const_iterator::const_iterator(
+            typename Vector<T>::const_iterator::const_pointer ptr) : iter_(ptr) 
+    {}
+    
+    // assignment
+    template <typename T>
+    typename Vector<T>::const_iterator::const_iterator_reference
+    Vector<T>::const_iterator::operator=(
+           typename Vector<T>::const_iterator::const_iterator_reference other) {
+        if (this != &other) 
+            iter_ = other.iter_;
+        
+        return *this;
+    }
+    
+    /*
+     *  const_iterator reference operators
+     *  ----------------------------------
+     */
+            
+    // const operator*
+    template <typename T>
+    typename Vector<T>::const_iterator::const_reference
+    Vector<T>::const_iterator::operator*() const {
+        return *iter_;
+    }
+    
+    // const operator ->
+    template <typename T>
+    typename Vector<T>::const_iterator::const_pointer
+    Vector<T>::const_iterator::operator->() const {
+        return iter_;
+    }
+    
+    /*
+     *  const iterator increment and decrement operators
+     *  ------------------------------------------------
+     */
+
+    // const ++operator
+    template <typename T>
+    typename Vector<T>::const_iterator::const_iterator_reference
+    Vector<T>::const_iterator::operator++() {
+        ++iter_;
+        return *this;
+    }
+
+    // const operator++
+    template <typename T>
+    typename Vector<T>::const_iterator::const_iterator
+    Vector<T>::const_iterator::operator++(int) {
+        const_iterator temp(this->iter_);
+        operator++();
+        return temp;
+    }
+    
+    // const --operator
+    template <typename T>
+    typename Vector<T>::const_iterator::const_iterator_reference
+    Vector<T>::const_iterator::operator--() {
+        --iter_;
+        return *this;
+    }
+    
+    // const operator--
+    template <typename T>
+    typename Vector<T>::const_iterator::const_iterator
+    Vector<T>::const_iterator::operator--(int) {
+        const_iterator temp(this->iter_);
+        operator--();
+        return temp;
+    }
+    
+    /*
+     *  const iterator pointer arithmatic operators 
+     *  -------------------------------------------
+     */
+
+    // const operator+
+    template <typename T>
+    typename Vector<T>::const_iterator
+    Vector<T>::const_iterator::operator+(size_t size) const {
+        return const_iterator(iter_ + size);
+    }
+    
+    // const operator +=
+    template <typename T>
+    typename Vector<T>::const_iterator::const_iterator_reference
+    Vector<T>::const_iterator::operator+=(size_t size) {
+        iter_ += size;
+        return *this;
+    }
+
+    // const operator- 
+    // for pointer arithmatic and std::difference algo
+
+    // NOTE ITERATOR_TRAITS NOT DEFINED AND BREAKS DLIST, QUEUE SO WE WONT 
+    // USE STD::DISTANCE for our Vector class until we fix dlist.
+    template <typename T>
+    typename Vector<T>::const_iterator::difference_type
+    Vector<T>::const_iterator::operator-(const_iterator_reference other) const{
+        return iter_ - other.iter_;
+    }
+    
+    // const operator-
+    // Dont forget to use the compound operator -=
+    // You forgot the = and this was a hard bug to find.
+    template <typename T>
+    typename Vector<T>::const_iterator::const_iterator_reference
+    Vector<T>::const_iterator::operator-=(size_t size) {
+        iter_ -= size;
+        return *this;
+    }
+
+    template <typename T>
+    typename Vector<T>::const_iterator
+    Vector<T>::const_iterator::operator-(size_t size) const {
+        return const_iterator(iter_ - size);
+    }
+ 
+    /*
+     *  const iterator comparison operators
+     *  ------------------------------------
+     *  Need to work with algorithms. They are comparing addresses not The
+     *  value of the pointer. In this case address of iter_ not value of 
+     *  *iter_
+     */
+
+    template <typename T>
+    bool
+    Vector<T>::const_iterator::operator==(
+            typename Vector<T>::const_iterator::const_iterator_reference other) const {
+        return iter_ == other.iter_;
+    }
+
+    template <typename T>
+    bool
+    Vector<T>::const_iterator::operator!=(
+            typename Vector<T>::const_iterator::const_iterator_reference other) const {
+        return !operator==(other);
+    }
+ 
+    template <typename T>
+    bool
+    Vector<T>::const_iterator::operator>(
+           typename Vector<T>::const_iterator::const_iterator_reference other) const {
+        return iter_ > other.iter_;
+    }
+
+    template <typename T>
+    bool
+    Vector<T>::const_iterator::operator>=(
+            typename Vector<T>::const_iterator::const_iterator_reference other) const {
+        return !operator<(other);
+    }
+
+    template <typename T>
+    bool
+    Vector<T>::const_iterator::operator<(
+            typename Vector<T>::const_iterator::const_iterator_reference other) const {
+        return other > *this;
+    }
+
+    template <typename T>
+    bool
+    Vector<T>::const_iterator::operator<=(
+            typename Vector<T>::const_iterator::const_iterator_reference other) const {
+        return !operator>(other);
+    }
+
+    // const subscript operator
+    // DANGEROUS can end up out of bounds. 
+    template <typename T>
+    typename Vector<T>::const_iterator::const_reference 
+    Vector<T>::const_iterator::operator[](size_t size) const {
+        return *(iter_ + size);
+    }
+
+}}
 
 #endif

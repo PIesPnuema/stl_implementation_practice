@@ -13,7 +13,7 @@
 using namespace std;
 
 #include "dlist.h"
-using namespace AaronCarroll::Project2;
+using namespace Stl_Implementation_Practice::Dlist;
 
 #include "UnitTest++.h"
 using namespace UnitTest;

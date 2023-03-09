@@ -19,7 +19,7 @@
 #include <utility>
 
 #include "vector.h"
-using namespace AaronCarroll;
+using namespace Stl_Implementation_Practice::Vector;
 
 #include "UnitTest++.h"
 using namespace UnitTest;
@@ -196,9 +196,6 @@ TEST(BackConst) {
 #endif
 }
 
-/*
- * Need to write the const iterator class for this to work correctly
-
 TEST(cBegin) {
     Vector<int> myVec = {0,1,2,3,4};
     auto it = myVec.cBegin();
@@ -211,7 +208,7 @@ TEST(cEnd) {
     auto it = myVec.cEnd();
     CHECK_EQUAL(*(it - 1), 4); 
 }
-*/
+
 
 #if PRINT_VALUES_ 
 TEST(print) {

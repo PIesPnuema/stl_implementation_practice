@@ -43,8 +43,8 @@
  * **************************************************************************/
 
 
-#ifndef AARONCARROLL_DLIST_H
-#define AARONCARROLL_DLIST_H
+#ifndef STL_IMPLEMENTATION_PRACTICE_DLIST_H
+#define STL_IMPLEMENTATION_PRACTICE_DLIST_H
 
 #include <algorithm>
 #include <cassert>
@@ -52,9 +52,9 @@
 
 #include <iostream>
 
-namespace AaronCarroll { namespace Project2
-{
-	/*
+namespace Stl_Implementation_Practice { namespace Dlist {
+
+    /*
 	 * dlist class:
 	 * dlist class is a double linked list. With a head and a tail.
 	 * destruction is handled by the erase() function for explicit destruction
