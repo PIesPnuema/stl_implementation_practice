@@ -3,7 +3,7 @@
 Here you will find the template header files. Refer to the root [README.md](https://github.com/PIesPnuema/stl_implementation_practice/blob/main/README.md) file for information on how to 
 compile tests using CMake.
 
-#### This project is my own implementation of the std::library containers. The purpose is just to learn and have fun. 
+#### This project is my own implementation of the C++ std::library containers. The purpose is just to learn and have fun. 
 
 #### Please feel free to let me know if there's a better method of implimitation for the following:
 - Structure on how I have built the project. From directory names/locations to how I ran my UnitTests.
@@ -16,7 +16,7 @@ I'm grateful for any feed back to help expand my knowledge. Thanks for stoping b
 ## TODO:
 [TODO->List](https://github.com/PIesPnuema/stl_implementation_practice/blob/main/TODO/check_list.md)
 
-1. Finish the vector.h 
+1. Finish the Vector.h 
 2. add more features to dlist.h
 3. add Queue that i created
 4. make Deque. 
