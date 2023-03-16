@@ -3,14 +3,20 @@
 /*
  *   Author:  Aaron Carroll
  *   Email:   arncarroll@gmail.com
- *   Date:    2022
- *   File:
+ *   Date:    Feb, 2022
+ *   File:    VectorTests.cpp
  *
  *   Program output
  *   --------------
- *   - Contains all unitTests for Vector.h
- *   - Runs all tests for Vector.h at bottom of page inside int main() {}.
+ *   - Contains all unitTests for Vector.h    
  *
+ *   TODO (future update)
+ *   --------------------
+ *   Redue the UnitTests using googletests
+ *    - utilize test suits
+ *    - utilize test fixtures
+ *    - utilize other tools you learn
+ *    - try to seperate Vector.h and dlist.h tests?
  */
 
 #include <algorithm>
@@ -32,7 +38,10 @@ using namespace VectorTestConstants;
 // Tests compiler error for attempting to assign a value to a const object.
 #define TEST_CONST_COMPILE_TIME_ERRORS_ 0
 
-// Vector ---------------------------------------------------------------------
+// ****************************************************************************
+// Vector Tests
+// ****************************************************************************
+
 
 TEST(DefaultConstructor) {
     Vector<int> myVectorInt;
@@ -235,7 +244,6 @@ TEST(PopBack) {
     CHECK_EQUAL(myVecStr.getSize(), 1);
 }
 
-
 TEST(Erase) {
     Vector<int> myVec = {0,1,2,3,4,5,6,7,8,9,10};
     myVec.erase(myVec.begin() + 2);
@@ -255,7 +263,6 @@ TEST(Erase) {
         CHECK(true);
     }
 }
-
 
 TEST(SubScript) {
     Vector<int> myVec;
@@ -310,7 +317,6 @@ TEST(VecOperatorEqual) {
     CHECK(!(vecStr2 == vecStr3));
 }
 
-
 TEST(VecOperatorNotEqual) {
  Vector<int> vec1 = {0,1,2,3};
     Vector<int> vec2 = {0,1,2,3};
@@ -340,7 +346,6 @@ TEST(VecOperatorGreaterThan) {
     CHECK(vecStr3 > vecStr2);
     CHECK(!(vecStr2 > vecStr3));
 }
-
 
 TEST(VecOperatorGreaterThanOrEqual) {
     Vector<int> vec1 = {0,1,2,3};
@@ -393,7 +398,6 @@ TEST(VecOperatorLessThanOrEqual) {
     CHECK(vecStr1 <= vecStr2);
 }
 
-
 // same as move b/c we know it calls swap. Kinda pointless
 TEST(Swap) {
     Vector<int> myVec1(SIZE, INTVALUE);
@@ -431,7 +435,10 @@ TEST(ReAllocPushBack) {
     }), 1);
 }
 
-// Vector Iterator tests ------------------------------------------------------
+// ****************************************************************************
+// Iterator Tests
+// ****************************************************************************
+
 #if PRINT_VALUES_
 TEST(expectedValuesOfIteratorOperators) {
     Vector<int> myVec = {0,1,2,3,4,5};
@@ -439,7 +446,6 @@ TEST(expectedValuesOfIteratorOperators) {
     std::cout << "first object with dereferencing: " << *first << "\n";
  }
 #endif
-
 
 TEST(IteratorDefaultCtor) {
     Vector<int> myVec = {0,1,2,3};
@@ -450,49 +456,144 @@ TEST(IteratorDefaultCtor) {
     CHECK_EQUAL(first[0], 0);
 }
 
-
 TEST(iteratorExplicitCtor) {
     Vector<int> myVec = {0,1,2,3};
     Vector<int>::iterator first = myVec.begin();
     CHECK_EQUAL(*first, *myVec.begin());
 }
 
-/*
-TEST(IteratorDereferenceOperatorConst) {
 
-}
-TEST(IteratorArrowOperatorConst) {
-
-}
 TEST(IteratorDereferenceOperator) {
-
+    Vector<int> myVec = {0,1,2,3};
+    Vector<int>::iterator first = myVec.begin();
+    CHECK_EQUAL(*first, myVec[0]);
+    CHECK_EQUAL(*first + 1, myVec[1]);
 }
+
 TEST(IteratorArrowOperator) {
+    std::string str1 = "I am a string";
+    std::string str2 = "Then what am I?";
+    std::string str3 = "We are all strings, duh!";
+
+    Vector<std::string> myVec = {str1, str2, str3};
+    Vector<std::string>::iterator first = myVec.begin();
+
+    CHECK_EQUAL(first->size(), str1.size());
+    ++first;
+
+    CHECK_EQUAL(first->size(), str2.size());
+    ++first;
+
+    CHECK_EQUAL(first->size(), str3.size());
 
 }
+
 TEST(IteratorPreIncrementOperator) {
+    std::string str1 = "I am a string";
+    std::string str2 = "Then what am I?";
+    std::string str3 = "We are all strings, duh!";
 
+    Vector<std::string> myVec = {str1, str2, str3};
+    Vector<std::string>::iterator first = myVec.begin();
+
+    CHECK_EQUAL(first->size(), str1.size());
+    ++first;
+
+    CHECK_EQUAL(first->size(), str2.size());
+    ++first;
+
+    CHECK_EQUAL(first->size(), str3.size());
 }
+
 TEST(IteratorPostIncrementOperator) {
+    std::string str1 = "I am a string";
+    std::string str2 = "Then what am I?";
+    std::string str3 = "We are all strings, duh!";
 
+    Vector<std::string> myVec = {str1, str2, str3};
+    Vector<std::string>::iterator first = myVec.begin();
+
+    CHECK_EQUAL(*first++, myVec[0]);
+   
+    CHECK_EQUAL(*first++, myVec[1]);
+
+    CHECK_EQUAL(*first++, myVec[2]);
 }
+
 TEST(IteratorPreDecrementOperator) {
+    std::string str1 = "I am a string";
+    std::string str2 = "Then what am I?";
+    std::string str3 = "We are all strings, duh!";
 
+    Vector<std::string> myVec = {str1, str2, str3};
+    Vector<std::string>::iterator first = myVec.begin() + 2;
+
+    CHECK_EQUAL(first->size(), str3.size());
+    --first;
+
+    CHECK_EQUAL(first->size(), str2.size());
+    --first;
+
+    CHECK_EQUAL(first->size(), str1.size());
 }
+
 TEST(IteratorPostDecrementOperator) {
+    std::string str1 = "I am a string";
+    std::string str2 = "Then what am I?";
+    std::string str3 = "We are all strings, duh!";
 
+    Vector<std::string> myVec = {str1, str2, str3};
+    Vector<std::string>::iterator first = myVec.begin() + 2;
+
+    CHECK_EQUAL(*first--, myVec[2]);
+   
+    CHECK_EQUAL(*first--, myVec[1]);
+
+    CHECK_EQUAL(*first--, myVec[0]);
 }
+
 TEST(IteratorPlusArithmaticOperator) {
+    std::string str1 = "I am a string";
+    std::string str2 = "Then what am I?";
+    std::string str3 = "We are all strings, duh!";
 
+    Vector<std::string> myVec = {str1, str2, str3};
+    Vector<std::string>::iterator first = myVec.begin();
+
+    CHECK_EQUAL(*first, myVec[0]);
+   
+    CHECK_EQUAL(*(first + 1), myVec[1]);
+
+    CHECK_EQUAL(*(first + 2), myVec[2]);
 }
-TEST(IteratorDifferenceOperator) {
 
+TEST(IteratorDifferenceOperator) {
+    std::string str1 = "I am a string";
+    std::string str2 = "Then what am I?";
+    std::string str3 = "We are all strings, duh!";
+
+    Vector<std::string> myVec = {str1, str2, str3};
+    Vector<std::string>::iterator first = myVec.begin();
+    Vector<std::string>::iterator last = myVec.end();
+    
+    // 3 strings subtracting last from first should == 3
+    CHECK_EQUAL(last - first, 3);
 }
 
 TEST(IteratorMinusArithmaticOperator) {
+    std::string str1 = "I am a string";
+    std::string str2 = "Then what am I?";
+    std::string str3 = "We are all strings, duh!";
 
+    Vector<std::string> myVec = {str1, str2, str3};
+    Vector<std::string>::iterator first = myVec.begin() + 2;
+
+    CHECK_EQUAL(*first, myVec[2]);
+   
+    CHECK_EQUAL(*(first - 1), myVec[1]);
+
+    CHECK_EQUAL(*(first - 2), myVec[0]);
 }
-*/ 
 
 TEST(IteratorOperatorEqual) {
     Vector<int> myVec = {0,1,2,3};
@@ -530,7 +631,6 @@ TEST(IteratorOperatorGreaterThenOrEqual) {
     CHECK(last >= first);
 }
 
-
 TEST(IteratorOperatorLessThan) {
     Vector<int> myVec = {0,1,2,3};
     Vector<int>::iterator first = myVec.begin();
@@ -549,7 +649,6 @@ TEST(IteratorOperatorLessThanOrEqual) {
     CHECK(!(last <= first));
 }
 
-
 TEST(IteratorSubscriptOperator) {
     Vector<int> myVec = {0,1,2,3};
     Vector<int>::iterator first = myVec.begin();
@@ -561,10 +660,99 @@ TEST(IteratorSubscriptOperator) {
 
 }
 
-/*
-TEST(test) {
+// ****************************************************************************
+// Const Iterator Tests
+// ****************************************************************************
 
+TEST(constIteratorDereferenceOperator) {
+    Vector<int> myVec = {1, 2, 3};
+    Vector<int>::const_iterator iter = myVec.cBegin();
+    CHECK_EQUAL(*iter, 1);
 }
-*/
+
+TEST(constIteratorArrowOperator) {
+    struct MyClass {
+        int x;
+        int y;
+    };
+    
+    Vector<MyClass> myVec = {{1, 2}, {3, 4}};
+
+    Vector<MyClass>::const_iterator iter = myVec.cBegin();
+
+    CHECK_EQUAL(iter->x, 1);
+    CHECK_EQUAL(iter->y, 2);
+}
+
+TEST(constIteratorPreIncrementOperator) {
+    Vector<int> myVec = {1, 2, 3};
+
+    Vector<int>::const_iterator iter = myVec.cBegin();
+
+    ++iter;
+
+    CHECK_EQUAL(*iter, 2);
+}
+
+TEST(constIteratorPostIncrementOperator) {
+    Vector<int> myVec = {1, 2, 3};
+
+    Vector<int>::const_iterator iter = myVec.cBegin();
+    Vector<int>::const_iterator result = iter++;
+
+    CHECK_EQUAL(*iter, 2);
+    CHECK_EQUAL(*result, 1);
+}
+
+TEST(constIteratorPreDecrementOperator) {
+    Vector<int> myVec = {1, 2, 3};
+
+    Vector<int>::const_iterator iter = myVec.cEnd();
+
+    --iter;
+
+    CHECK_EQUAL(*iter, 3);
+}
+
+TEST(constIteratorPostDecrementOperator) {
+    Vector<int> myVec = {1, 2, 3};
+
+    Vector<int>::const_iterator iter = myVec.cEnd();
+    
+    // .cEnd() returns 1 past last. Need to decrement to enter vector elements
+    iter--;
+    
+    Vector<int>::const_iterator result = iter--;
+    
+    CHECK_EQUAL(*iter, 2);
+    CHECK_EQUAL(*result, 3);
+}
+
+TEST(constIteratorPlusArithmaticOperator) {
+    Vector<int> myVec = {1, 2, 3};
+    
+    Vector<int>::const_iterator iter = myVec.cBegin();
+    Vector<int>::const_iterator result = iter + 2;
+    
+    CHECK_EQUAL(*result, 3);
+}
+
+TEST(constIteratorMinusArithmaticOperator) {
+    Vector<int> myVec = {1, 2, 3};
+    
+    Vector<int>::const_iterator iter = myVec.cEnd();
+    Vector<int>::const_iterator result = iter - 3;
+    
+    CHECK_EQUAL(*result, 1);
+}
+
+TEST(constIteratorDifferenceOperator) {
+    Vector<int> myVec = {1, 2, 3};
+    
+    Vector<int>::const_iterator first = myVec.cBegin();
+    Vector<int>::const_iterator last = myVec.cEnd();
+    
+    CHECK_EQUAL(last - first, 3);
+}
 
 
