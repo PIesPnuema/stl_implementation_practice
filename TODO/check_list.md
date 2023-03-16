@@ -55,23 +55,17 @@ Check list is based upon interface for vector.h
 
 | Defined Member Functions | Written Unit Tests |
 | --- | --- |
-| [ x ] defaultCtor() | [ x ] TEST(IteratorDefaultCtor) |
-| [ x ] explicitCtor() | [ x ] TEST(iteratorExplicitCtor) |
-| [ x ] operator=() | [ x ] TEST(iteratorOperatorEqual) |
-| [ x ] ~destructor() | [  ] TEST() |
-| [ x ] operator*() const | [  ] TEST(IteratorDereferenceOperatorConst) |
-| [ x ] operator->() const | [  ] TEST(IteratorArrowOperatorConst) |
-| [ x ] operator*() | [  ] TEST(IteratorDereferenceOperator) |
-| [ x ] operator->() | [  ] TEST(IteratorArrowOperator) |
-| [ x ] operator++() pre | [  ] TEST(IteratorPreIncrementOperator) |
-| [ x ] operator++(int) post | [  ] TEST(IteratorPostIncrementOperator) |
-| [ x ] operator--() pre | [  ] TEST(IteratorPreDecrementOperator) |
-| [ x ] operator--(int) post | [  ] TEST(IteratorPostDecrementOperator) |
-| [ x ] operator+=() | [  ] TEST(IteratorPlusArithmaticOperator) |
-| [ x ] operator+() | [  ] TEST(IteratorPlusArithmaticOperator) |
-| [ x ] operator-(other) | [  ] TEST(IteratorDifferenceOperator) |
-| [ x ] operator-=() | [  ] TEST(IteratorMinusArithmaticOperator) |
-| [ x ] operator-() | [  ] TEST(IteratorMinusArithmaticOperator) |
+| [ x ] operator*() | [ x ] TEST(IteratorDereferenceOperator) |
+| [ x ] operator->() | [ x ] TEST(IteratorArrowOperator) |
+| [ x ] operator++() pre | [ x ] TEST(IteratorPreIncrementOperator) |
+| [ x ] operator++(int) post | [ x ] TEST(IteratorPostIncrementOperator) |
+| [ x ] operator--() pre | [ x ] TEST(IteratorPreDecrementOperator) |
+| [ x ] operator--(int) post | [  x] TEST(IteratorPostDecrementOperator) |
+| [ x ] operator+=() | [ x ] TEST(IteratorPlusArithmaticOperator) |
+| [ x ] operator+() | [ x ] TEST(IteratorPlusArithmaticOperator) |
+| [ x ] operator-(other) | [ x ] TEST(IteratorDifferenceOperator) |
+| [ x ] operator-=() | [ x ] TEST(IteratorMinusArithmaticOperator) |
+| [ x ] operator-() | [ x ] TEST(IteratorMinusArithmaticOperator) |
 | [ x ] operator==() | [ x ] TEST(IteratorOperatorEqual) |
 | [ x ] operator!=() | [ x ] TEST(IteratorOperatorNotEqual) |
 | [ x ] operator>() | [ x ] TEST(IteratorOperatorGreaterThan) |
@@ -87,28 +81,24 @@ Check list is based upon interface for vector.h
 
 | Defined Member Functions | Written Unit Tests |
 | --- | --- |
-| [ x ] defaultCtor() | [  ] TEST(ConstIteratorDefaultCtor) |
-| [ x ] explicitCtor() | [  ] TEST(ConstiteratorExplicitCtor) |
-| [ x ] operator=() | [  ] TEST(ConstiteratorOperatorEqual) |
-| [ x ] ~destructor() | [  ] TEST(Const) |
-| [ x ] operator*() const | [  ] TEST(ConstIteratorDereferenceOperatorConst) |
-| [ x ] operator->() const | [  ] TEST(ConstIteratorArrowOperatorConst) |
-| [ x ] operator++() pre | [  ] TEST(ConstIteratorPreIncrementOperator) |
-| [ x ] operator++(int) post | [  ] TEST(ConstIteratorPostIncrementOperator) |
-| [ x ] operator--() pre | [  ] TEST(ConstIteratorPreDecrementOperator) |
-| [ x ] operator--(int) post | [  ] TEST(ConstIteratorPostDecrementOperator) |
-| [ x ] operator+=() | [  ] TEST(ConstIteratorPlusArithmaticOperator) |
-| [ x ] operator+() | [  ] TEST(ConstIteratorPlusArithmaticOperator) |
-| [ x ] operator-(other) | [  ] TEST(ConstIteratorDifferenceOperator) |
-| [ x ] operator-=() | [  ] TEST(ConstIteratorMinusArithmaticOperator) |
-| [ x ] operator-() | [  ] TEST(ConstIteratorMinusArithmaticOperator) |
-| [ x ] operator==() | [  ] TEST(ConstIteratorOperatorEqual) |
-| [ x ] operator!=() | [  ] TEST(ConstIteratorOperatorNotEqual) |
-| [ x ] operator>() | [  ] TEST(ConstIteratorOperatorGreaterThan) |
-| [ x ] operator>=() | [  ] TEST(ConstIteratorOperatorGreaterThenOrEqual) |
-| [ x ] operator<() | [  ] TEST(ConstIteratorOperatorLessThan) |
-| [ x ] operator<=() | [  ] TEST(ConstIteratorOperatorLessThanOrEqual) |
-| [ x ] operator[]() | [  ] TEST(ConstIteratorSubscriptOperator) |
+| [ x ] operator*() const | [ x ] TEST(ConstIteratorDereferenceOperatorConst) |
+| [ x ] operator->() const | [ x ] TEST(ConstIteratorArrowOperatorConst) |
+| [ x ] operator++() pre | [ x ] TEST(ConstIteratorPreIncrementOperator) |
+| [ x ] operator++(int) post | [ x ] TEST(ConstIteratorPostIncrementOperator) |
+| [ x ] operator--() pre | [ x ] TEST(ConstIteratorPreDecrementOperator) |
+| [ x ] operator--(int) post | [ x ] TEST(ConstIteratorPostDecrementOperator) |
+| [ x ] operator+=() | [ x ] TEST(ConstIteratorPlusArithmaticOperator) |
+| [ x ] operator+() | [ x ] TEST(ConstIteratorPlusArithmaticOperator) |
+| [ x ] operator-(other) | [ x ] TEST(ConstIteratorDifferenceOperator) |
+| [ x ] operator-=() | [ x ] TEST(ConstIteratorMinusArithmaticOperator) |
+| [ x ] operator-() | [ x ] TEST(ConstIteratorMinusArithmaticOperator) |
+| [ x ] operator==() | [ x ] TEST(ConstIteratorOperatorEqual) |
+| [ x ] operator!=() | [x  ] TEST(ConstIteratorOperatorNotEqual) |
+| [ x ] operator>() | [ x ] TEST(ConstIteratorOperatorGreaterThan) |
+| [ x ] operator>=() | [ x ] TEST(ConstIteratorOperatorGreaterThenOrEqual) |
+| [ x ] operator<() | [ x ] TEST(ConstIteratorOperatorLessThan) |
+| [ x ] operator<=() | [ x ] TEST(ConstIteratorOperatorLessThanOrEqual) |
+| [ x ] operator[]() | [ x ] TEST(ConstIteratorSubscriptOperator) |
 
 ----
 

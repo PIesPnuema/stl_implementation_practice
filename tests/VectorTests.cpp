@@ -567,6 +567,22 @@ TEST(IteratorPlusArithmaticOperator) {
     CHECK_EQUAL(*(first + 2), myVec[2]);
 }
 
+TEST(IteratorPlusEqualArithmaticOperator) {
+    std::string str1 = "I am a string";
+    std::string str2 = "Then what am I?";
+    std::string str3 = "We are all strings, duh!";
+
+    Vector<std::string> myVec = {str1, str2, str3};
+    Vector<std::string>::iterator first = myVec.begin();
+
+    CHECK_EQUAL(*first, myVec[0]);
+    first += 1;
+    CHECK_EQUAL(*first, myVec[1]);
+    first += 1;
+    CHECK_EQUAL(*first, myVec[2]);
+}
+
+
 TEST(IteratorDifferenceOperator) {
     std::string str1 = "I am a string";
     std::string str2 = "Then what am I?";
@@ -595,10 +611,29 @@ TEST(IteratorMinusArithmaticOperator) {
     CHECK_EQUAL(*(first - 2), myVec[0]);
 }
 
+TEST(IteratorMinusEqualArithmaticOperator) {
+    std::string str1 = "I am a string";
+    std::string str2 = "Then what am I?";
+    std::string str3 = "We are all strings, duh!";
+
+    Vector<std::string> myVec = {str1, str2, str3};
+    Vector<std::string>::iterator first = myVec.begin() + 2;
+
+    CHECK_EQUAL(*first, myVec[2]);
+    first -= 1;
+
+    CHECK_EQUAL(*first, myVec[1]);
+    first -= 1;
+
+    CHECK_EQUAL(*first, myVec[0]);
+}
+
 TEST(IteratorOperatorEqual) {
     Vector<int> myVec = {0,1,2,3};
+    
     Vector<int>::iterator first = myVec.begin();
     Vector<int>::iterator last = myVec.end();
+    
     CHECK(!(first == last));
     CHECK(last == last);
     CHECK(first == first);
@@ -606,8 +641,10 @@ TEST(IteratorOperatorEqual) {
 
 TEST(IteratorOperatorNotEqual) {
     Vector<int> myVec = {0,1,2,3};
+    
     Vector<int>::iterator first = myVec.begin();
     Vector<int>::iterator last = myVec.end();
+    
     CHECK(first != last);
     CHECK(!(last != last));
     CHECK(!(first != first));
@@ -617,6 +654,7 @@ TEST(IteratorOperatorGreaterThan) {
     Vector<int> myVec = {0,1,2,3};
     Vector<int>::iterator first = myVec.begin();
     Vector<int>::iterator last = myVec.end();
+    
     CHECK(!(first > last));
     CHECK(last > first);
     CHECK(!(first > first));
@@ -624,8 +662,10 @@ TEST(IteratorOperatorGreaterThan) {
 
 TEST(IteratorOperatorGreaterThenOrEqual) {
     Vector<int> myVec = {0,1,2,3};
+    
     Vector<int>::iterator first = myVec.begin();
     Vector<int>::iterator last = myVec.end();
+
     CHECK(!(first >= last));
     CHECK(first >= first);
     CHECK(last >= first);
@@ -633,8 +673,10 @@ TEST(IteratorOperatorGreaterThenOrEqual) {
 
 TEST(IteratorOperatorLessThan) {
     Vector<int> myVec = {0,1,2,3};
+    
     Vector<int>::iterator first = myVec.begin();
     Vector<int>::iterator last = myVec.end();
+    
     CHECK(first < last);
     CHECK(!(last < first));
     CHECK(!(first < first));
@@ -642,8 +684,10 @@ TEST(IteratorOperatorLessThan) {
 
 TEST(IteratorOperatorLessThanOrEqual) {
     Vector<int> myVec = {0,1,2,3};
+    
     Vector<int>::iterator first = myVec.begin();
     Vector<int>::iterator last = myVec.end();
+    
     CHECK(first <= last);
     CHECK(first <= first);
     CHECK(!(last <= first));
@@ -651,8 +695,10 @@ TEST(IteratorOperatorLessThanOrEqual) {
 
 TEST(IteratorSubscriptOperator) {
     Vector<int> myVec = {0,1,2,3};
+    
     Vector<int>::iterator first = myVec.begin();
     Vector<int>::iterator last = myVec.end();
+    
     CHECK_EQUAL(first[0], 0);
     CHECK_EQUAL(first[1], 1);
     CHECK_EQUAL(first[2], 2);
@@ -737,6 +783,15 @@ TEST(constIteratorPlusArithmaticOperator) {
     CHECK_EQUAL(*result, 3);
 }
 
+TEST(constIteratorPlusEqualArithmaticOperator) {
+    Vector<int> myVec = {1, 2, 3};
+    
+    Vector<int>::const_iterator iter = myVec.cBegin();
+    iter += 2;
+    
+    CHECK_EQUAL(*iter, 3);
+}
+
 TEST(constIteratorMinusArithmaticOperator) {
     Vector<int> myVec = {1, 2, 3};
     
@@ -744,6 +799,15 @@ TEST(constIteratorMinusArithmaticOperator) {
     Vector<int>::const_iterator result = iter - 3;
     
     CHECK_EQUAL(*result, 1);
+}
+
+TEST(constIteratorMinusEqualArithmaticOperator) {
+    Vector<int> myVec = {1, 2, 3};
+    
+    Vector<int>::const_iterator iter = myVec.cEnd();
+    iter -= 3;
+    
+    CHECK_EQUAL(*iter, 1);
 }
 
 TEST(constIteratorDifferenceOperator) {
