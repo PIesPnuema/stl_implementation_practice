@@ -816,7 +816,7 @@ TEST(constIteratorDifferenceOperator) {
     Vector<int>::const_iterator first = myVec.cBegin();
     Vector<int>::const_iterator last = myVec.cEnd();
     
-    CHECK_EQUAL(last - first, 3);
+    CHECK_EQUAL(std::distance(first, last), 3);
 }
 
 
