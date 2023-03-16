@@ -593,7 +593,7 @@ TEST(IteratorDifferenceOperator) {
     Vector<std::string>::iterator last = myVec.end();
     
     // 3 strings subtracting last from first should == 3
-    CHECK_EQUAL(last - first, 3);
+    CHECK_EQUAL(std::distance(first, last), 3);
 }
 
 TEST(IteratorMinusArithmaticOperator) {
