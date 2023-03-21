@@ -1,30 +1,34 @@
-
-/*****************************************************************************
- * * Author:  Aaron Carroll, U09258362 
- * * Email:   arncarroll@gmail.com
- * * For:     C/C++ Programming IV
- * * Date:    Nov 9, 2022
- * * File:	  dlsit.h
- * * OS:      Linux, POP OS
- * * Editor:  NeoVim
- * *
- * * Program output:
+/*
+ *   File:         dlist.h
+ *   Author:       Aaron Carroll
+ *   Email:        arncarroll@gmail.com
+ *   Created:      2023-03-21
+ *   Modified:     2023-03-21
+ *   License:      MIT License
+ *   Copyright:    (C) 2023-03-21 Aaron Carroll 
+ *   
+ *   Dependencies
+ *   ------------
+ *   N/A
  *
- *				- dlist is a doubly link list.
+ *   Program output
+ *   --------------
+ *   
+ *   - dlist is a doubly link list. 
  *
- *				- dlist contains various c++ conventions to follow
- *					- move semantics (described below)
- *					- Iterator overloads with <bidirectional_iterator_tag>
- *					  attibutes
- *					- return "value initialization" technique used in insert
- *					  and erase 
- *					   e.g:
+ *			- dlist contains various c++ conventions to follow
+ *				- move semantics (described below)
+ *				- Iterator overloads with <bidirectional_iterator_tag>
+ *				  attibutes
+ *				- return "value initialization" technique used in insert
+ *				  and erase 
+ *				   e.g:
  *
- *					   return iterator(pNode);
+ *				   return iterator(pNode);
  *
- *					- operator==() in the node. Was necessary for proper use of 
- *					  iteration operator==() in turn necessary for all other 
- *					  comparison operators 
+ *				- operator==() in the node. Was necessary for proper use of 
+ *				  iteration operator==() in turn necessary for all other 
+ *				  comparison operators 
  *
  *
  *				**** MOVE SEMANTICS ****
@@ -40,7 +44,12 @@
  *				created destructor. This technique has a special name 
  *				MOVE SEMANTICS. 
  *
- * **************************************************************************/
+ *	 TODO
+ *	 ----
+ *	 REWRITE to mimic the C++ std implementation regarding the head pointing to
+ *	 last so that it is connected where head == last->next. 
+ *
+ */
 
 
 #ifndef STL_IMPLEMENTATION_PRACTICE_DLIST_H

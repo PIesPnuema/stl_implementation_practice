@@ -1,16 +1,21 @@
-
 /*
- *   Author:  Aaron Carroll
- *   Email:   arncarroll@gmail.com
- *   Date:    2022
- *   File:
+ *   File:         Vector.h
+ *   Author:       Aaron Carroll
+ *   Email:        arncarroll@gmail.com
+ *   Created:      2023-02-12
+ *   Modified:     2023-03-21
+ *   License:      MIT License
+ *   Copyright:    (C) 2023-03-21 Aaron Carroll
+ *
+ *   Dependencies
+ *   ------------
+ *
  *
  *   Program output
  *   --------------
- *   recreating the std::vector. Does not provide template for a specific allocator.
- *   
- *   TODO: create a const_iterator specializaion class for use with const Vector<T>
- *   
+ *   recreating the std::vector. Does not provide template for a specific 
+ *   allocator.
+ *
  */
 
 
